@@ -153,13 +153,15 @@ Phương án dưới đây giữ phạm vi §1: AI hỗ trợ hồ sơ, không p
 
 Chọn `yeu_cau_bang_chung`: tự gửi giúp người mua đúng ở #4 nhanh hơn nhưng có thể gửi lặp #8 hoặc sai hồ sơ #3; bắt duyệt tất cả giảm lỗi gửi nhưng có thể gây chờ ở #1; cấm thì không thu được căn cứ cho #9. Sau review, TV2 chọn **tách hai nhánh: tự gửi mẫu chuẩn cho người mua khi đủ điều kiện; trưởng nhóm duyệt yêu cầu gửi shop**, còn người mua tự xác nhận khi nộp ảnh. Lý do đổi từ duyệt mọi yêu cầu: người mua duyệt lời xin bằng chứng gửi cho chính mình gây thao tác thừa và dễ nhầm với nộp tài liệu. Chưa ghi nhận đồng thuận của cả nhóm.
 
-**Đã có lựa chọn TV2 và ghi nhận TV3; còn thiếu lựa chọn TV1 và kết luận chung. Không tự suy diễn thành đồng thuận của ba người.** Mỗi người tự xếp mọi tool rồi bổ sung kết quả thật; nếu nhóm đổi phương án, cập nhật cả §3, §4 và prototype.
+**Đã có lựa chọn TV2 và ghi nhận TV3; dòng TV1 dưới đây là phương án đề xuất để Bảo xác nhận, chưa phải lời phát biểu đã được ghi nhận. Kết luận chung vẫn chờ cả nhóm xác nhận.** Nếu nhóm đổi phương án, cập nhật cả §3, §4 và prototype.
 
 | Thành viên | Mức tự chọn cho tool khó nhất | Cái giá chấp nhận / kịch bản tham chiếu | Xác nhận sau thảo luận |
 |---|---|---|---|
-| TV1 | Chưa ghi nhận | Cần bổ sung lựa chọn thật | Chưa xác nhận |
+| TV1 — Nguyễn Thế Bảo (phương án đề xuất, chờ xác nhận) | Cân nhắc **trưởng nhóm duyệt mọi yêu cầu xin bằng chứng**, vì tin đã gửi không thu hồi được; đối chiếu với phương án tách hai nhánh của TV2 | Tình huống giả định sát thực tế: khách đã gửi ảnh tem hai lần, chỉ còn 30 phút gửi khiếu nại, nhưng bị xin lại ảnh và phải chờ duyệt 4 giờ. Duyệt mọi tin giảm gửi sai/lặp (#3/#8) nhưng có thể làm khách đúng ở #4 lỡ bước gửi yêu cầu. Chấp nhận duyệt yêu cầu gửi shop để bảo vệ tính trung lập; tránh bắt duyệt mẫu gửi người mua nếu đúng đơn, thiếu đúng tài liệu và chưa trùng | Đề xuất thống nhất hai nhánh sau khi so sánh chi phí chờ và gửi sai. Bảo cần xác nhận lựa chọn thực tế, lý do và có thay đổi quan điểm hay không; không coi nội dung đề xuất này là lịch sử thảo luận đã diễn ra |
 | TV2 — Ngô Duy Khánh | Tự gửi mẫu chuẩn cho người mua khi đủ điều kiện; trưởng nhóm duyệt yêu cầu gửi shop | Chặn gửi sai/lặp ở #3/#8 bằng kiểm tra đơn, phần thiếu và yêu cầu trùng; tránh chờ vô ích ở #4 | Đã chọn phương án này sau review; chưa có kết luận chung TV1/TV3 |
 | TV3 — Phạm Đức Vinh | Đồng ý tách hai nhánh, kèm một điều kiện khi dựng: nhánh "gửi shop" phải hiện **trạng thái chờ duyệt** rõ ràng trên màn hình; nếu giao diện không hiện được trạng thái thì lui về mức "cần trưởng nhóm duyệt" cho cả hai nhánh | Nếu ẩn trạng thái chờ, người mua tưởng đã báo shop khi thực sự chưa (#1, #8); giữ AI tự gửi mẫu cho người mua thì ca #4 không chờ vô ích (#4); cái giá chấp nhận: ca #1 chờ thêm một bước duyệt trước khi shop được hỏi | Đã dựng đúng hai nhánh trong prototype (màn 1 ca #4 tự gửi — màn 2 thẻ duyệt); chờ xác nhận chung của nhóm |
+
+**Kết luận đề xuất để nhóm xác nhận:** tách `yeu_cau_bang_chung` theo người nhận. AI tự gửi mẫu chuẩn cho người mua khi đúng đơn, xác định được tài liệu thiếu, chưa gửi trùng và không chứa dữ liệu riêng của bên kia. Gửi shop cần trưởng nhóm duyệt đúng nội dung và người nhận. Không đủ điều kiện tự gửi thì hỏi làm rõ hoặc chuyển trưởng nhóm. Loại duyệt mọi yêu cầu vì gây chờ không cần thiết ở #4; loại tự gửi mọi yêu cầu vì rủi ro nhầm/lặp ở #3/#8 và thiếu trung lập khi gửi shop. Hạn shop chỉ bắt đầu sau gửi thành công. Chưa đánh dấu đây là đồng thuận thực tế.
 
 ### 4.4. Thử mức tự chủ trên kịch bản
 
@@ -242,19 +244,27 @@ Ba tiêu chí dưới đây chấm **Pass/Fail** trên từng ca; “chưa có b
 
 ### Bảng ghi nhận demo sau khi thực hiện
 
+**Bản chuẩn bị diễn tập — tình huống giả định sát thực tế, chưa phải demo đã diễn ra.** Bảng dưới ghi hướng xử lý dự kiến, không ghi nhận hành động chưa thực hiện. Sau demo thật, thay bằng người đưa ca, câu hỏi, phản ứng và thay đổi thực tế. Tất cả thông tin đơn hàng/thời hạn là dữ liệu dựng phục vụ lab.
+
 | Trường cần ghi | Ghi nhận |
 |---|---|
-| Người/nhóm đưa ca lạ | [Bổ sung sau demo] |
-| Ca lạ — nguyên văn | [Bổ sung sau demo] |
-| Prototype/nhóm đã xử lý thế nào | [Bổ sung sau demo] |
-| Có đổi thiết kế hoặc kết luận không? Vì sao? | [Bổ sung sau demo] |
-| Người trình bày từng phần | Phân công đề xuất: Bảo — phạm vi, kịch bản; Khánh — UX khi sai, mức tự chủ; Vinh — bấm prototype. Xác nhận người trình bày thực tế sau demo. |
+| Người/nhóm đưa ca lạ | Tình huống do AI đề xuất để nhóm diễn tập nội bộ; chưa có TA/nhóm bạn đưa ca tại buổi demo. |
+| Ca lạ — nguyên văn (đề xuất diễn tập) | “Tôi mua áo size L nhưng nhận size M. Shop đã sửa mô tả thành M rồi. Tôi gửi ảnh tem áo hai lần mà hệ thống vẫn hỏi lại. Chỉ còn 30 phút hết hạn khiếu nại, giờ lại bảo chờ nhân viên 4 tiếng thì tôi mất tiền à?” |
+| Prototype/nhóm xử lý thế nào — dự kiến | Xác nhận đúng đơn; kiểm tra tài liệu đã có, không xin lại cùng ảnh. Nêu rõ thiếu mô tả lúc đặt nên chưa kết luận. Hướng dẫn người mua gửi yêu cầu qua luồng Trả hàng/Hoàn tiền sẵn có trước hạn, kèm bằng chứng hiện có; đồng thời chuyển trưởng nhóm kiểm tra lịch sử. Chỉ báo “đã chuyển” khi chuyển thành công. Không tự hoàn tiền, bác khiếu nại hay hứa gia hạn. Prototype có chọn đơn, nộp ảnh minh họa và chuyển trưởng nhóm; cảnh báo chỉ còn 30 phút và đối chiếu hai ảnh đã gửi chưa có luồng riêng, cần trình bày bằng lời. |
+| Có đổi thiết kế hoặc kết luận không? Vì sao? — đề xuất | Giữ mức tự chủ đã đề xuất; làm nổi bật hạn còn lại và nhắc “Chuyển nhân viên không thay thế bước gửi yêu cầu và không gia hạn”. Khi xin thêm ảnh, phải nói ảnh cũ thiếu chi tiết gì. Lý do: chỉ chuyển người có thể khiến khách lỡ hạn dù AI chưa phán quyết sai. Các cải tiến này là đề xuất sau tình huống, chưa ghi là đã được dựng hoặc phát sinh từ demo thật. |
+| Người trình bày từng phần — dự kiến | Bảo: rủi ro mất quyền khiếu nại và bằng chứng còn thiếu. Khánh: lời AI, bước tiếp theo, mức tự chủ và hai thời hạn. Vinh: bấm luồng đang có, phân biệt phần prototype đã dựng với phần giải thích bằng lời. Xác nhận người trình bày thực tế sau demo. |
+
+**Lời AI đề xuất cho ca diễn tập:**
+
+> “Tôi hiểu bạn lo lỡ hạn. Tôi sẽ kiểm tra các ảnh đã có trong hồ sơ để tránh yêu cầu bạn gửi lại. Hiện chưa có mô tả tại thời điểm đặt nên tôi chưa thể kết luận bên nào đúng. Bạn nên gửi yêu cầu khiếu nại qua mục Trả hàng/Hoàn tiền của đơn trước thời hạn đang hiển thị, kèm bằng chứng hiện có. Tôi có thể chuyển hồ sơ để nhân viên kiểm tra lịch sử mô tả; việc chuyển hồ sơ không thay thế bước gửi yêu cầu và không gia hạn thời gian khiếu nại.”
+
+**Điều kiện diễn tập:** dùng hạn giả ở §3.1 nhưng đặt đồng hồ mô phỏng thành 17:30 ngày 14/11/2026 để còn 30 phút. Không nói đã kiểm tra ảnh khi mới dự định kiểm tra; nếu không truy cập được hồ sơ ảnh, nêu rõ giới hạn đó và chuyển người. Mốc phản hồi 4 giờ là mục tiêu mô phỏng, không phải cam kết xử lý trước khi hết hạn.
 
 ### Checklist hồ sơ nộp
 
 - [x] `spec.md` có §1, §2, §6, §7 và phần tổng hợp theo phạm vi hiện tại.
 - [x] Đã có tên nhóm, họ tên, mã học viên và phần việc của 3 thành viên; nhóm tự đối chiếu mã học viên.
-- [ ] Bổ sung bàn/zone nếu được yêu cầu; ghi lựa chọn TV1 và kết luận chung tại §4.3.
+- [ ] Bổ sung bàn/zone nếu được yêu cầu; TV1 xác nhận hoặc sửa phương án đề xuất và cả nhóm xác nhận kết luận tại §4.3.
 - [x] Prototype có file, 11 kiểm tra trình duyệt đạt, có 2 ảnh hiện hành đánh số; xem phạm vi và giới hạn ở §5–§6.
 - [ ] Sau demo, ghi ca lạ và phản hồi thực tế vào bảng §7; cập nhật kết quả chấm thử §6.
 - [ ] Kiểm tra repo nộp công khai, đúng tên `K5-L3B-Day05-T4-<tên nhóm>` và mở được ở cửa sổ ẩn danh.
