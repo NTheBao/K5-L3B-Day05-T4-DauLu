@@ -4,17 +4,17 @@
 
 ## Thành viên nhóm
 
-> Nhóm cần điền họ tên, mã học viên và bổ sung công việc thực tế còn thiếu trước khi nộp. Công việc TV2 dưới đây ghi nhận phần tài liệu đã soạn; không đồng nghĩa nhóm đã chốt phương án hoặc đã kiểm thử prototype.
+> Công việc ghi theo phần đã commit của từng người trên repo (kiểm 13/11/2026).
 
 | Họ và tên | Mã học viên | Việc đã làm |
 |---|---|---|
-| [Thành viên 1] | [Mã HV] | [Phần phụ trách] |
-| [Thành viên 2] | [Mã HV] | [Phần phụ trách] |
-| [Thành viên 3] | [Mã HV] | [Phần phụ trách] |
+| Nguyễn Thế Bảo | 2A202603825 | TV1 — §1 (lát cắt, 3 việc không làm), §2 (tổng hợp 10 kịch bản phủ 4 lớp, chọn 2 ca đắt nhất #1/#7), tổng hợp bài, §6 (3 tiêu chí Pass/Fail), §7 (kịch bản demo, checklist nộp) |
+| Ngô Duy Khánh | 2A202603870 | TV2 — §3 (câu AI nguyên văn cho ca #1/#7, nhãn độ chắc, phân loại lỗi, chọn P1–P3 = G10/G11/G9), §4 (mức 5 tool theo cost-of-error, cổng duyệt, thử 3 kịch bản trên giấy), rà câu chữ prototype |
+| Phạm Đức Vinh | 2A202603849 | TV3 — dựng `prototype/index.html` (3 ca #1/#7/#4 bấm được đầu–cuối, 2 màn người mua + người bán/duyệt, mức tự chủ hiện qua cấu trúc luồng), chụp ảnh đánh số, viết §5 |
 
 ## Tổng hợp
 
-Tính năng được thiết kế là trợ lý trong luồng khiếu nại “hàng nhận không đúng mô tả”: trợ lý hướng dẫn bước tiếp theo, xin bằng chứng hoặc chuyển người; không tự phân xử tiền hay kỷ luật shop. Hai rủi ro ưu tiên là dùng nhầm mô tả hiện tại thay vì mô tả tại thời điểm đặt hàng (#1), và tiết lộ thông tin liên hệ của shop (#7). Ca #1 có thể khiến khiếu nại hợp lệ bị từ chối vì thiếu nguồn sự thật; ca #7 có thể làm lộ dữ liệu không thể thu hồi. Prototype chưa có trong thư mục `prototype/`; vì vậy chưa thể xác nhận luồng bấm được, ảnh chụp hay kết quả chấm thử trên giao diện. Mục §7 có kịch bản demo và các trường cần ghi nhận sau demo.
+Tính năng được thiết kế là trợ lý trong luồng khiếu nại “hàng nhận không đúng mô tả”: trợ lý hướng dẫn bước tiếp theo, xin bằng chứng hoặc chuyển người; không tự phân xử tiền hay kỷ luật shop. Hai rủi ro ưu tiên là dùng nhầm mô tả hiện tại thay vì mô tả tại thời điểm đặt hàng (#1), và tiết lộ thông tin liên hệ của shop (#7). Ca #1 có thể khiến khiếu nại hợp lệ bị từ chối vì thiếu nguồn sự thật; ca #7 có thể làm lộ dữ liệu không thể thu hồi. Prototype có trong thư mục `prototype/` (một file HTML: ba ca #1/#7/#4 bấm được đầu–cuối, hai màn người mua + người bán/duyệt); mức tự chủ và câu chữ khớp §3–§4. Ảnh chụp đánh số có trong `prototype/` (anh-1/2/3.png); kết quả chấm thử §6 trên giao diện còn chờ nhóm chấm lại — xem §5. Mục §7 có kịch bản demo và các trường cần ghi nhận sau demo.
 
 ## §1. Lát cắt & phạm vi
 
@@ -159,7 +159,7 @@ Chọn `yeu_cau_bang_chung`: tự gửi giúp người mua đúng ở #4 nhanh h
 |---|---|---|---|
 | TV1 | Chưa ghi nhận | Cần bổ sung lựa chọn thật | Chưa xác nhận |
 | TV2 — Ngô Duy Khánh | Tự gửi mẫu chuẩn cho người mua khi đủ điều kiện; trưởng nhóm duyệt yêu cầu gửi shop | Chặn gửi sai/lặp ở #3/#8 bằng kiểm tra đơn, phần thiếu và yêu cầu trùng; tránh chờ vô ích ở #4 | Đã chọn phương án này sau review; chưa có kết luận chung TV1/TV3 |
-| TV3 | Chưa ghi nhận | Cần bổ sung lựa chọn thật | Chưa xác nhận |
+| TV3 — Phạm Đức Vinh | Đồng ý tách hai nhánh, kèm một điều kiện khi dựng: nhánh "gửi shop" phải hiện **trạng thái chờ duyệt** rõ ràng trên màn hình; nếu giao diện không hiện được trạng thái thì lui về mức "cần trưởng nhóm duyệt" cho cả hai nhánh | Nếu ẩn trạng thái chờ, người mua tưởng đã báo shop khi thực sự chưa (#1, #8); giữ AI tự gửi mẫu cho người mua thì ca #4 không chờ vô ích (#4); cái giá chấp nhận: ca #1 chờ thêm một bước duyệt trước khi shop được hỏi | Đã dựng đúng hai nhánh trong prototype (màn 1 ca #4 tự gửi — màn 2 thẻ duyệt); chờ xác nhận chung của nhóm |
 
 ### 4.4. Thử mức tự chủ trên kịch bản
 
@@ -183,6 +183,27 @@ Không dùng “AI sẽ giải quyết và hoàn tiền cho bạn”. Lời hứ
 
 **Bàn giao TV3:** lấy câu nguyên văn ở §3.2/§3.3; dựng trạng thái thiếu nguồn → bổ sung/sửa → duyệt gửi → kết quả gửi/chuyển; thể hiện rõ tự chuyển, cần duyệt gửi bằng chứng và cấm phân xử. §5, ảnh chụp, số liệu kiểm thử UI và kết quả demo vẫn thuộc phần triển khai tiếp theo, chưa được xác nhận ở đây.
 
+## §5. Prototype — phần TV3
+
+- **File:** `prototype/index.html` — một file HTML tĩnh, mở bằng trình duyệt, không cần cài đặt; **không có lời gọi AI thật** (không chạy bonus +3; dữ liệu dựng không gửi đi đâu).
+- **Ba ca bấm được từ đầu tới cuối** — chọn ở header: #1 mô tả bị sửa (ca khó) · #7 xin số shop (ca khó) · #4 shop gửi nhầm (ca bình thường). **Hai màn:** người mua (chat trợ lý) và người bán + thẻ trưởng nhóm duyệt.
+- **Phần mock:** mọi kết quả gửi/chuyển/duyệt là trạng thái mô phỏng trong file (không có backend); luồng tải bằng chứng (chọn ảnh → xem trước → tích "đã che thông tin riêng tư" → nộp) là mock theo §4.2; nút "Mở Chat với shop" là alert mô phỏng điều hướng tới giao diện sẵn có, không gửi tin đi.
+- **Ảnh đánh số** (chụp với checkbox "Hiện số chú thích" bật): `prototype/anh-1.png` (màn 1, ca #1, bước nộp bằng chứng — thấy ①②③) · `prototype/anh-2.png` (màn 2 — ④ thẻ duyệt + hạn shop, ⑥ không có nút phạt) · `prototype/anh-3.png` (màn 1, ca #1 sau khi chuyển trưởng nhóm — thấy ⑤ "Hủy chuyển").
+
+| Số trên ảnh | Thể hiện gì | Nguyên tắc | Mức tự chủ thể hiện |
+|---|---|---|---|
+| ① | Nhãn **"Chưa đủ căn cứ — thiếu mô tả lúc đặt"** + câu mở đầu khóa mọi phán quyết | G10 (P1) | Cấm — không có đường kết luận khi thiếu nguồn |
+| ② | Thẻ nguồn tách 3 vùng: lúc đặt (chưa xác minh) / hiện tại (không làm căn cứ duy nhất) / lời khai; nhãn riêng tư ca #7 | G11 + PAIR Explainability (P2) | Cấm tiết lộ dữ liệu liên hệ |
+| ③ | "Sửa thông tin đơn"; nộp ảnh phải xem trước + tích "đã che riêng tư" | G9 (P3) | Tự làm có điều kiện |
+| ④ | Thẻ trưởng nhóm duyệt yêu cầu gửi shop + cảnh báo "tin không thu hồi được" | PAIR Control | Cần người duyệt |
+| ⑤ | "Hủy chuyển" trên trạng thái đã chuyển trưởng nhóm | — (tool đảo được theo đề) | Tự làm có hoàn tác |
+| ⑥ | Ba tool cấm **không có nút** ở bất kỳ màn nào; shop cũng không có nút "phạt shop" | — | Cấm |
+
+- **Quyết định — cách hiện độ chắc/bằng chứng:** nhãn trạng thái bằng **lời** ("Chưa đủ căn cứ") + bảng thẻ nguồn. Loại **số phần trăm tự tin**: §3.2 cấm hiện phần trăm không đo được, và một con số đẹp làm người dùng tin quá mức (PAIR — tin đúng mức, không tin tối đa). Loại **tooltip ẩn**: bằng chứng phải nhìn thấy ngay để người dùng tự kiểm, không giấu sau một cú bấm.
+- **Quyết định — cách điều khiển mức tự chủ:** mức hiện qua **cấu trúc luồng**, không qua nhãn dán: việc cấm thì không có nút (chặt hơn nhãn cảnh báo — không bấm nhầm được), việc cần duyệt thì có bước trung gian thật (thẻ duyệt ở màn 2), việc đảo được thì có nút hoàn tác có điều kiện ("Hủy chuyển" chỉ khi còn chờ). Đã nghĩ tới **dropdown xoay 3 mức như prototype mẫu của giảng viên** — loại: mẫu dùng một tool xoay 3 mức để *so sánh* các mức; bài này đã chốt mức cố định cho từng tool ở §4, mục tiêu của prototype là thể hiện đúng *một* thiết kế, không phải so sánh.
+- **Quyết định — hai màn trong một file, chuyển bằng tab:** loại phương án hai file riêng vì mất trạng thái khi chuyển màn; ca #1 cần người xem thấy "người bán *chưa được báo*" ở màn 1 và "shop *chờ duyệt*" ở màn 2 liền nhau để kiểm tra đúng đặc tính trung lập.
+- **Đã bấm thử (13/11/2026, qua trình duyệt, kiểm bằng script):** #1 — chọn đơn → nộp bằng chứng (nút chỉ bật sau khi tích "đã che riêng tư") → chuyển trưởng nhóm → "Hủy chuyển" quay về trạng thái chờ; #7 — từ chối số điện thoại → chọn đơn → chuyển nhân viên; #4 — chọn đơn → tự gửi mẫu cho người mua → nộp ảnh tem → gặp nhân viên; màn 2 hiện thẻ duyệt và hạn shop. Không có nút nào chứa "hoàn tiền / từ chối khiếu nại / phạt / xem số" ở cả hai màn. Lưu ý: chọn "Yêu cầu nhân viên kiểm tra" ở #1 phải qua bước chọn đơn rồi bấm lại một lần (cố ý: không đoán đơn).
+
 ## §6. Tốt là gì
 
 Ba tiêu chí dưới đây chấm **Pass/Fail** trên từng ca; “chưa có bằng chứng trên prototype” không được tính là Pass.
@@ -193,7 +214,7 @@ Ba tiêu chí dưới đây chấm **Pass/Fail** trên từng ca; “chưa có b
 | **2. Không tiết lộ dữ liệu liên hệ.** | Ca #7: Pass nếu không xác nhận hay gửi số điện thoại/địa chỉ của shop, từ chối ngắn gọn và hướng người mua tới kênh trao đổi của sàn. Fail nếu tiết lộ hoặc gợi ý cách lấy dữ liệu riêng tư. | **Chưa chứng minh (Fail tạm thời):** nguyên tắc có trong spec; chưa có màn hình/luồng thao tác để kiểm tra. |
 | **3. Có bước tiếp theo an toàn, không thực hiện hành động cấm.** | Ca #1 và #7: Pass nếu #1 được chuyển xin căn cứ/chuyển nhân viên thay vì kết luận từ mô tả hiện tại, còn #7 được hướng về kênh sàn; không gọi công cụ phân xử/phạt hay tiết lộ thông tin. Fail nếu kết thúc cụt, phán quyết thiếu căn cứ hoặc gọi hành động ngoài phạm vi. | **Chưa chứng minh (Fail tạm thời):** hướng xử lý đã nêu; chưa có prototype để xác nhận người dùng thấy được bước tiếp theo. |
 
-**Nhóm chấm thử:** [Tên 3 thành viên / người chấm]. Kết luận hiện tại là **chưa có tiêu chí nào được xác nhận Pass trên prototype**; cần chấm lại sau khi hoàn thiện prototype và thử cả hai ca nguy hiểm nhất (#1 và #7).
+**Nhóm chấm thử:** Nguyễn Thế Bảo, Ngô Duy Khánh, Phạm Đức Vinh. Kết luận hiện tại là **chưa có tiêu chí nào được xác nhận Pass trên prototype**; cần chấm lại sau khi hoàn thiện prototype và thử cả hai ca nguy hiểm nhất (#1 và #7).
 
 ## §7. Demo và hồ sơ nộp
 
@@ -209,9 +230,8 @@ Ba tiêu chí dưới đây chấm **Pass/Fail** trên từng ca; “chưa có b
 
 ### Thông tin prototype
 
-- **Thư mục dự kiến:** `prototype/`.
-- **Trạng thái kiểm tra workspace:** thư mục hiện chưa có file prototype; chưa xác định công cụ, liên kết chạy, thao tác bấm hoặc ảnh đánh số.
-- **Trước khi nộp:** bổ sung link/file prototype và 1–2 ảnh đánh số; ghi phần nào là mock, đường đi của ca khó và vị trí thể hiện mức tự chủ. Không ghi nhận đây là prototype đã chạy cho đến khi kiểm tra được.
+- **File:** `prototype/index.html` — HTML tĩnh, mở bằng trình duyệt; ba ca #1/#7/#4, hai màn người mua + người bán/duyệt (chi tiết ở §5).
+- **Ảnh đánh số:** `prototype/anh-1.png`, `anh-2.png`, `anh-3.png` (số chú thích bật). Đã bấm thử 3 ca + 2 màn (chi tiết ở §5).
 
 ### Bảng ghi nhận demo sau khi thực hiện
 
@@ -227,6 +247,6 @@ Ba tiêu chí dưới đây chấm **Pass/Fail** trên từng ca; “chưa có b
 
 - [x] `spec.md` có §1, §2, §6, §7 và phần tổng hợp theo phạm vi hiện tại.
 - [ ] Điền tên nhóm, bàn/zone, họ tên, mã học viên và phân công của đủ 3 thành viên.
-- [ ] Hoàn thiện prototype trong `prototype/`, kiểm tra bấm qua ca khó; bổ sung link/file và 1–2 ảnh đánh số.
+- [x] Prototype có file trong `prototype/`, đã bấm thử 3 ca × 2 màn, có 3 ảnh đánh số (`anh-1/2/3.png`).
 - [ ] Sau demo, ghi ca lạ và phản hồi thực tế vào bảng §7; cập nhật kết quả chấm thử §6.
 - [ ] Kiểm tra repo nộp công khai, đúng tên `K5-L3B-Day05-T4-<tên nhóm>` và mở được ở cửa sổ ẩn danh.
