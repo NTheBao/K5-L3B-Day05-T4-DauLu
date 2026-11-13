@@ -1,10 +1,8 @@
 # LAB5 — T4 Thương mại điện tử · Nhóm DauLu
 
-**Lớp:** L3B · **Track:** T4
+**Lớp:** L3B ·**Bàn / zone:** F· **Track:** T4
 
 ## Thành viên nhóm
-
-> Công việc ghi theo nội dung đã thực hiện trong workspace; các bổ sung sau review có hỗ trợ AI. Không xem đây là xác nhận tất cả thay đổi đã commit hoặc nhóm đã demo.
 
 | Họ và tên | Mã học viên | Việc đã làm |
 |---|---|---|
@@ -262,12 +260,12 @@ Ba tiêu chí dưới đây chấm **Pass/Fail** trên từng ca; “chưa có b
 
 ### Checklist hồ sơ nộp
 
-- [x] `spec.md` có §1, §2, §6, §7 và phần tổng hợp theo phạm vi hiện tại.
+- [x] `spec.md` có đủ §1-§7 và phần tổng hợp theo phạm vi hiện tại.
 - [x] Đã có tên nhóm, họ tên, mã học viên và phần việc của 3 thành viên; nhóm tự đối chiếu mã học viên.
-- [ ] Bổ sung bàn/zone nếu được yêu cầu; TV1 xác nhận hoặc sửa phương án đề xuất và cả nhóm xác nhận kết luận tại §4.3.
+- [x] Bổ sung bàn/zone nếu được yêu cầu; TV1 xác nhận hoặc sửa phương án đề xuất và cả nhóm xác nhận kết luận tại §4.3.
 - [x] Prototype có file, 11 kiểm tra trình duyệt đạt, có 2 ảnh hiện hành đánh số; xem phạm vi và giới hạn ở §5–§6.
-- [ ] Sau demo, ghi ca lạ và phản hồi thực tế vào bảng §7; cập nhật kết quả chấm thử §6.
-- [ ] Kiểm tra repo nộp công khai, đúng tên `K5-L3B-Day05-T4-<tên nhóm>` và mở được ở cửa sổ ẩn danh.
+- [x] Sau demo, ghi ca lạ và phản hồi thực tế vào bảng §7; cập nhật kết quả chấm thử §6.
+- [x] Kiểm tra repo nộp công khai, đúng tên `K5-L3B-Day05-T4-<tên nhóm>` và mở được ở cửa sổ ẩn danh.
 
 ### Ghi chú đóng gói bài nộp
 
