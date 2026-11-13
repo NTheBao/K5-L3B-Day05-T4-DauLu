@@ -86,7 +86,7 @@ code{background:#eef2f6;padding:1px 5px;border-radius:4px}
 <body>
 <header>
   <h1>Prototype T4 · Trợ lý khiếu nại "hàng không đúng mô tả" — nhóm DauLu</h1>
-  <div class="sub">Dựng theo spec §3–§4 đã chốt. Hai ca đắt nhất: <b>#1 mô tả bị sửa sau khi đặt</b> (thiếu nguồn lúc đặt → không kết luận, chuyển người) và <b>#7 đòi số điện thoại shop</b> (từ chối riêng tư). Kèm ca #4 làm ca bình thường. Hồ sơ mô phỏng <code>DH-DEMO-01</code>, thời điểm 14:00 ngày 13/11/2026.</div>
+  <div class="sub">Dựng theo phương án §3–§4; kết luận thảo luận chung đang chờ bổ sung. Hai ca đắt nhất: <b>#1 mô tả bị sửa sau khi đặt</b> (thiếu nguồn lúc đặt → không kết luận, chuyển người) và <b>#7 đòi số điện thoại shop</b> (từ chối riêng tư). Kèm ca #4 làm ca bình thường. Hồ sơ mô phỏng <code>DH-DEMO-01</code>, thời điểm 14:00 ngày 13/11/2026.</div>
   <div class="toggle">
     <span>Ca demo:</span>
     <button id="c1" class="on" onclick="setCase(1)">#1 · Mô tả bị sửa</button>
@@ -147,7 +147,7 @@ const PILL={auto:['Tự làm','p-auto'],ask:['Tự / Cần duyệt','p-ask'],no:
 const ANN=[
   ['1','P1 · HAX G10 — thu hẹp khi nghi ngờ','Nhãn "Chưa đủ căn cứ — thiếu mô tả lúc đặt" + câu mở đầu ca #1: không kết luận khi thiếu nguồn.'],
   ['2','P2 · HAX G11 + PAIR Explainability','Thẻ nguồn tách 3 vùng: lúc đặt (chưa xác minh) / hiện tại (không dùng làm căn cứ duy nhất) / lời khai. Ca #7: thông báo "Bảo vệ thông tin của cả hai bên".'],
-  ['3','P3 · HAX G9 — sửa dễ','"Sửa thông tin đơn", xem trước + che riêng tư khi nộp ảnh, "Hủy chuyển" khi còn chờ.'],
+  ['3','P3 · HAX G9 — sửa dễ','Sửa bản nháp gửi shop trước duyệt; xác nhận riêng tư khi nộp ảnh minh họa; hủy chuyển khi còn chờ.'],
   ['4','PAIR Control — cần duyệt','Thẻ trưởng nhóm duyệt yêu cầu gửi shop (màn 2): nháp → sửa/duyệt → gửi, cảnh báo "tin không thu hồi được".'],
   ['5','Tự làm có hoàn tác','"Hủy chuyển" trên trạng thái đã chuyển trưởng nhóm (tool đảo được theo đề).'],
   ['6','Việc cấm không có nút','soan_hoan_tien, tu_choi_khieu_nai, phat_shop: không có nút nào trong mọi màn hình — chỉ nằm trong bảng tool.'],
@@ -170,7 +170,10 @@ const SRC1=`<div class="src"><span class="n">2</span><b>Nguồn AI đang có</b>
 
 /* ========================================================= */
 const $=s=>document.querySelector(s);
-let screen='buyer', kase=1, state='start', sent=false; /* sent: trưởng nhóm đã duyệt & gửi yêu cầu cho shop (mock) */
+let screen='buyer', kase=1, state='start', sent=false;
+let selected=false, evidence=false, requested=false, requestCount=0, transferred=false, reply='', sentAt=null;
+let draftText='Vui lòng cung cấp bằng chứng tem size và mô tả lúc đặt của đơn DH-DEMO-01 để đối chiếu hai bên.';
+const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); /* sent: trưởng nhóm đã duyệt & gửi yêu cầu cho shop (mock) */
 
 function me(x){return `<div class="me">${x}</div>`}
 function ai(x){return `<div class="ai"><div class="who">Trợ lý Shopee (AI)</div>${x}</div>`}
@@ -185,7 +188,7 @@ function renderBuyer(){
       h+=ai(`<span class="tagline t-noground"><span class="n">1</span>Chưa đủ căn cứ — thiếu mô tả lúc đặt</span>
         Mình đã chuyển hồ sơ cho <b>trưởng nhóm</b> để kiểm tra lịch sử mô tả — việc này AI không tự xác minh được.${SRC1}
         <div class="box done"><span class="n">5</span><b>Đã chuyển hồ sơ</b> · mã hồ sơ HT-KN48213 · mục tiêu phản hồi: ~4 giờ. Trưởng nhóm thấy: 2 bên nói gì, nguồn nào thiếu, hạn khiếu nại 18:00 14/11.
-        <div class="btns"><button class="btn out" onclick="go('cancel-transfer')">Hủy chuyển</button><button class="btn" onclick="go('upload')">Bổ sung thêm bằng chứng</button></div></div>
+        <div class="btns"><button class="btn out" onclick="go('cancel-transfer')">Hủy chuyển</button><button class="btn" onclick="go('upload')">Xem bằng chứng</button></div></div>
         ${sent?`<div class="box done">Trưởng nhóm đã duyệt — <b>đã gửi yêu cầu bằng chứng cho shop</b>. Hạn phản hồi của shop: 24 giờ kể từ lúc gửi.</div>`
           :`<div class="box warn">Người bán sẽ nhận yêu cầu bằng chứng <b>sau khi trưởng nhóm duyệt</b> — xem màn 2. Chưa gửi thành công thì chưa hiện "đã báo shop".</div>`}`);
     } else if(state=='cancel-transfer'){
@@ -233,7 +236,7 @@ function renderBuyer(){
       h+=ai(`Đang chuyển hồ sơ cho trưởng nhóm…`);
     } else if(state=='transferred'){
       h+=ai(`Đã chuyển hồ sơ cho trưởng nhóm xem xét tranh chấp. Nhân viên <b>không cung cấp thông tin liên hệ riêng của bên kia</b> — trao đổi vẫn qua kênh sàn. Mục tiêu phản hồi ~4 giờ.
-        <div class="box done"><span class="n">5</span>Chưa muốn chuyển nữa? <div class="btns"><button class="btn out" onclick="go('ordered')">Hủy chuyển</button></div></div>`);
+        <div class="box done"><span class="n">5</span>Chưa muốn chuyển nữa? <div class="btns"><button class="btn out" onclick="go('cancel-transfer')">Hủy chuyển</button></div></div>`);
     } else { /* start */
       h+=ai(`<span class="tagline t-privacy"><span class="n">2</span>Bảo vệ thông tin của cả hai bên</span>
         Tôi không cung cấp hoặc xác nhận số điện thoại, địa chỉ riêng của shop. Bạn có thể trao đổi qua mục <b>Chat với shop</b> trong ứng dụng. Nếu shop chưa phản hồi về khiếu nại, tôi có thể hướng dẫn bổ sung bằng chứng hoặc chuyển hồ sơ cho nhân viên xem xét; nhân viên cũng không cung cấp thông tin liên hệ riêng của bên kia.
@@ -251,48 +254,52 @@ function renderBuyer(){
         ${state=='submitted'?`<div class="box done">Đã nhận ảnh tem. Hồ sơ có đủ căn cứ để gửi cho shop — shop sẽ thấy qua yêu cầu <b>được trưởng nhóm duyệt</b> (màn 2). Việc <b>hoàn tiền là do nhân viên quyết</b>, không phải AI — mình hướng dẫn bạn gửi yêu cầu trả hàng qua luồng sẵn có, hạn 18:00 ngày 14/11.</div>
         <div class="btns"><button class="btn esc" onclick="go('transfer')">Cần hỗ trợ thêm — gặp nhân viên</button></div>`:''}`);
     } else if(state=='ordered'){
-      h+=ai(`Đơn DH-DEMO-01 · shop đã nhận gửi nhầm. Đây là việc AI làm được ngay, không cần bạn chờ duyệt:<div class="box done"><span class="n">5</span>Đã gửi mẫu xin bằng chứng cho <b>bạn</b> (tin đã tới, không thu hồi được — nhưng chỉ là tin xin ảnh, không ảnh hưởng tiền của ai):<br><i>"Đơn DH-DEMO-01 còn thiếu ảnh tem size trên áo bạn nhận…"</i></div>
+      h+=ai(`Đơn DH-DEMO-01 · shop đã nhận gửi nhầm. Mẫu chỉ được gửi một lần cho hồ sơ trong phiên mô phỏng:<div class="box done">Mẫu xin bằng chứng đã gửi một lần cho <b>bạn</b> (tin đã tới, không thu hồi được — nhưng chỉ là tin xin ảnh, không ảnh hưởng tiền của ai):<br><i>"Đơn DH-DEMO-01 còn thiếu ảnh tem size trên áo bạn nhận…"</i></div>
         <p style="font-size:13.5px">Mình <b>không hứa kết quả xét duyệt</b> — gửi yêu cầu khác với được duyệt hoàn tiền.</p>
         <div class="btns"><button class="btn pri" onclick="go('upload')">Nộp ảnh tem</button><button class="btn out" onclick="go('ask-order')">Sửa thông tin đơn</button></div>`);
     } else if(state=='transfer'){
       h+=ai(`Đang chuyển hồ sơ cho trưởng nhóm…`);
     } else if(state=='transferred'){
       h+=ai(`Đã chuyển cho trưởng nhóm. Nhân viên sẽ xem xét yêu cầu trả hàng hoàn tiền — kết quả xét duyệt không do AI quyết.
-        <div class="box done"><span class="n">5</span>Chưa muốn chuyển nữa? <div class="btns"><button class="btn out" onclick="go('ordered')">Hủy chuyển</button></div></div>`);
+        <div class="box done"><span class="n">5</span>Chưa muốn chuyển nữa? <div class="btns"><button class="btn out" onclick="go('cancel-transfer')">Hủy chuyển</button></div></div>`);
     } else { /* start: tin không có mã đơn → phải hỏi, không đoán */
       h+=ai(`<span class="tagline t-noground"><span class="n">1</span>Cần biết đơn nào</span> Bạn nói shop nhận gửi nhầm — cho mình xin <b>mã đơn</b> để kiểm tra trước, mình không đoán đơn từ nội dung chat.${ORDER_ASK}`);
     }
   }
+  if(selected) h+=`<div class="box">${evidence?'Đã có 1 ảnh minh họa trong hồ sơ.':'Chưa nộp ảnh.'} ${kase===4?'Số lần gửi mẫu xin ảnh: '+requestCount:''}</div>`;
+  if(selected&&transferred&&state!=='transferred')h+=`<div class="box done">Đã chuyển trưởng nhóm. <button class="btn" onclick="go('cancel-transfer')">Hủy chuyển</button></div>`;
   $('#buyer').innerHTML=h;
-  const ck=$('#ck-priv'); if(ck)ck.onchange=e=>{const b=$('#btn-submit'); if(b)b.disabled=!e.target.checked;};
+  const ck=$('#ck-priv'); if(ck)ck.onchange=e=>{const b=$('#btn-submit'); if(b)b.disabled=evidence||!e.target.checked;};
 }
-function submitEv(){go('submitted')}
+function submitEv(){if(!selected||evidence||!$('#ck-priv')?.checked)return;evidence=true;go('submitted')}
 
 /* ---------- MÀN 2 · NGƯỜI BÁN + TRƯỞNG NHÓM DUYỆT ---------- */
 function renderSeller(){
-  $('#seller').innerHTML=`
-    <div class="scard"><h3>Khiếu nại #KN-48213 (trung lập, hai bên cùng thấy)</h3>
-    Người mua: <i>"${CASES[1]}"</i><br>Người bán: <i>chưa phản hồi</i><br>
-    Bằng chứng hồ sơ: mô tả hiện tại "size M" · ảnh người mua nộp (đã che riêng tư) · <b>mô tả lúc đặt: chưa xác minh</b>
-    <div class="privacy"><span class="n">6</span>Không có số điện thoại, địa chỉ của người mua ở đây — trao đổi qua Chat trong sàn.</div></div>
-
-    <div class="deadline"><span class="n">4</span><b>Hạn phản hồi của shop: 14:00 ngày 14/11</b> (= thời điểm gửi thành công yêu cầu + 24 giờ, mô phỏng). Quá hạn không tự động nghĩa là shop sai — trưởng nhóm xét hồ sơ.</div>
-
-    <div class="scard"><h3>Trưởng nhóm — duyệt yêu cầu gửi bằng chứng cho shop</h3>
-    Bản nháp (nguyên văn): <i>"Yêu cầu người bán cung cấp ảnh chụp tem size sản phẩm đơn DH-DEMO-01. Tin gửi đi không thu hồi được."</i>
-    ${sent?`<div class="box done">Đã duyệt &amp; gửi cho shop. Tin đã tới, không thu hồi được — nếu nội dung sai chỉ đính chính qua quy trình duyệt.</div>`
-    :`<div class="btns">
-      <button class="btn pri" onclick="sent=true;render()">Duyệt &amp; gửi</button>
-      <button class="btn out" onclick="alert('[mock P3] Sửa nội dung nháp — đổi nội dung thì phải duyệt lại')">Sửa nội dung</button>
-    </div>`}
-    <p style="font-size:12px;color:var(--mut);margin:6px 0 0">Yêu cầu gửi <b>cho shop</b> cần duyệt — khác với mẫu chuẩn gửi cho người mua (AI tự gửi, màn 1 ca #4).</p></div>
-
-    <div class="scard"><h3>Shop có thể làm gì</h3>
-    <div class="btns">
-      <button class="btn pri" onclick="alert('[mock] Gửi phản hồi + bằng chứng ngược, vào hồ sơ chung')">Phản hồi + bằng chứng</button>
-      <button class="btn esc" onclick="alert('[mock] Xin người sàn xem lại')">Xin người sàn xem lại</button>
-    </div>
-    <p style="font-size:12.5px;color:var(--mut)">Không có nút "phạt shop" — việc này không thuộc luồng khiếu nại, AI cũng không được làm. <span class="n">6</span></p></div>`;
+ const deadline=sentAt?new Date(sentAt.getTime()+24*60*60*1000):null;
+ const fmt=d=>d.toLocaleString('vi-VN',{timeZone:'Asia/Ho_Chi_Minh',hour:'2-digit',minute:'2-digit',day:'2-digit',month:'2-digit',year:'numeric'});
+ $('#seller').innerHTML=`
+ <div class="scard"><h3>Hồ sơ đang chọn — ca #${kase}</h3>
+ ${selected?'Đơn DH-DEMO-01':'Chưa xác nhận đơn — chưa được thao tác hồ sơ.'}<br>
+ Người mua: ${esc(CASES[kase])}<br>Ảnh trong hồ sơ: ${evidence?'1 ảnh minh họa đã nộp':'chưa có'}.<br>
+ Mô tả lúc đặt: chưa xác minh. Không kết luận từ mô tả hiện tại.
+ <div class="privacy"><span class="n">6</span>Không chia sẻ số điện thoại/địa chỉ giữa hai bên.</div></div>
+ <div class="scard"><h3><span class="n">4</span>Khu trưởng nhóm — mô phỏng vai trò riêng</h3>
+ ${!selected||!transferred?'<p>Chưa có yêu cầu chuyển hồ sơ. Chọn đúng đơn và chuyển từ màn người mua trước.</p>':sent?
+ `<div class="box done">Đã duyệt và gửi lúc ${fmt(sentAt)} (đồng hồ mô phỏng). Nội dung: ${esc(draftText)}. Tin đã tới, không thu hồi được.</div>`:
+ `<div class="box warn">Chờ trưởng nhóm duyệt — chưa gửi cho shop, chưa bắt đầu tính hạn.</div>
+ <label for="draft-text">Nội dung yêu cầu có thể sửa trước khi duyệt:</label>
+ <textarea id="draft-text" rows="5" style="width:100%">${esc(draftText)}</textarea>
+ <p>Người nhận: shop của đơn DH-DEMO-01; nguồn còn thiếu: mô tả lúc đặt. Tin đã gửi không thu hồi được.</p>
+ <button class="btn out" onclick="editDraft()">Lưu bản sửa</button>
+ <button class="btn pri" onclick="approve()">Duyệt &amp; gửi</button>`}</div>
+ <div class="scard"><h3>Khu người bán — chỉ nhận sau duyệt</h3>
+ ${!sent?'<p>Shop chưa nhận yêu cầu hoặc bằng chứng. Chưa có hạn phản hồi.</p>':
+ `<p>Nội dung nhận: ${esc(draftText)}</p><p>Ảnh kèm theo: ${evidence?'1 ảnh minh họa đã che dữ liệu riêng tư':'không có'}.</p>
+ <div class="deadline">Hạn phản hồi: ${fmt(deadline)} = lúc gửi thành công + 24 giờ. Không thay đổi hạn khiếu nại của người mua.</div>
+ <label for="reply-text">Phản hồi/bằng chứng của shop (dữ liệu giả):</label><textarea id="reply-text" rows="3" style="width:100%">${esc(reply)}</textarea>
+ <button class="btn pri" onclick="sellerReply()">Ghi phản hồi vào hồ sơ</button>
+ ${reply?`<div class="box done">Đã ghi phản hồi: ${esc(reply)}. Nhân viên đối chiếu hai bên; AI chưa phán quyết.</div>`:''}`}
+ </div>`;
 }
 
 /* ---------- panels ---------- */
@@ -306,9 +313,24 @@ function renderPanels(){
 function render(){renderBuyer();renderSeller();renderPanels();}
 function view(s){screen=s;$('#buyer').style.display=s=='buyer'?'flex':'none';$('#seller').style.display=s=='seller'?'block':'none';
   $('#tab-buyer').classList.toggle('on',s=='buyer');$('#tab-seller').classList.toggle('on',s=='seller');render();}
-function setCase(k){kase=k;state='start';sent=false;[1,7,4].forEach(x=>$('#c'+x).classList.toggle('on',x==k));
+function setCase(k){kase=k;state='start';sent=false;selected=false;evidence=false;requested=false;requestCount=0;transferred=false;reply='';sentAt=null;[1,7,4].forEach(x=>$('#c'+x).classList.toggle('on',x==k));
   view('buyer');}
-function go(s){if(s=='transfer'){state='transferred';}else{state=s;}render();}
+function go(s){
+ if(s==='start'||s==='ask-order'){state='ask-order';render();return;}
+ if(s==='ordered'){
+  selected=true;
+  if(kase===4&&!requested&&!evidence){requested=true;requestCount++;}
+ }
+ if((s==='upload'||s==='transfer')&&!selected){state='ask-order';render();return;}
+ if(s==='transfer'){transferred=true;state='transferred';}
+ else if(s==='cancel-transfer'){transferred=false;state='ordered';}
+ else state=s;
+ render();
+}
+function editDraft(){const value=$('#draft-text').value.trim();if(!value)return;draftText=value;render();}
+function approve(){if(!selected||!transferred||sent)return;draftText=$('#draft-text').value.trim();if(!draftText)return;sent=true;sentAt=new Date('2026-11-13T17:00:00+07:00');render();}
+function sellerReply(){if(!sent)return;reply=$('#reply-text').value.trim();render();}
+
 $('#ann').onchange=e=>document.body.classList.toggle('hide-n',!e.target.checked);
 render();
 </script>
