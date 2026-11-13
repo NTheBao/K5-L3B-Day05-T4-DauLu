@@ -4,11 +4,11 @@
 
 ## Thành viên nhóm
 
-> Chưa có tên, mã học viên và phân công trong workspace; nhóm cần điền thông tin thật trước khi nộp.
+> Nhóm cần điền họ tên, mã học viên và bổ sung công việc thực tế còn thiếu trước khi nộp. Công việc TV2 dưới đây ghi nhận phần tài liệu đã soạn; không đồng nghĩa nhóm đã chốt phương án hoặc đã kiểm thử prototype.
 
 | Họ và tên | Mã học viên | Việc đã làm |
 |---|---|---|
-| Nguyễn Thế Bảo | 2A202603825 | ĐIỀU PHỐI & NỘI DUNG |
+| [Thành viên 1] | [Mã HV] | [Phần phụ trách] |
 | [Thành viên 2] | [Mã HV] | [Phần phụ trách] |
 | [Thành viên 3] | [Mã HV] | [Phần phụ trách] |
 
@@ -30,7 +30,7 @@ Trong **Trò chuyện với Shopee**, khi **người mua** báo “hàng nhận 
 
 ## §2. Kịch bản rủi ro
 
-Nhãn hại: **nhẹ** = người dùng tự nhận ra và sửa; **sửa được** = cần thêm công sức/người hỗ trợ; **không chấp nhận được** = có thể chuyển tiền sai, xử oan hoặc gây hại khó đảo ngược. Các trường hợp dưới đây là dữ liệu dựng, không phải sự việc hay chính sách thật.
+Nhãn hại đánh giá **hậu quả nếu lỗi ở cột “AI có thể sai thế nào” xảy ra**, không đánh giá cách xử lý đúng. **Nhẹ** = người dùng tự nhận ra và sửa; **sửa được** = cần thêm công sức/người hỗ trợ; **không chấp nhận được** = có thể chuyển tiền sai, xử oan hoặc gây hại khó đảo ngược. Nếu một dòng có nhiều lỗi, lấy mức hại cao nhất và nêu rõ lỗi đó. Các trường hợp dưới đây là dữ liệu dựng, không phải sự việc hay chính sách thật.
 
 | # | Tin nhắn người dùng | Lớp | AI có thể sai thế nào (bằng chứng) | Một sản phẩm tốt nên làm gì | Mức hại / lỗi |
 |---|---|---|---|---|---|
@@ -52,6 +52,136 @@ Nhãn hại: **nhẹ** = người dùng tự nhận ra và sửa; **sửa đư�
 - **Ca suýt được chọn: #2 (hoàn tiền khi người bán có căn cứ hàng khớp mô tả).** Đây là rủi ro tài chính nghiêm trọng vì `soan_hoan_tien` khó đảo. Nhóm chọn #7 thay vì #2 vì việc không tiết lộ thông tin là ngưỡng an toàn tuyệt đối, còn rủi ro #2 có thể được chặn bằng cổng không tự hoàn/từ chối và yêu cầu đối chiếu hai bên. #2 vẫn là kiểm thử quan trọng, không phải ca an toàn.
 - **Ca #6 (đòi khóa shop) cũng được cân nhắc.** Tác động lớn, nhưng câu trả lời an toàn có thể chặn trực tiếp bằng việc không gọi `phat_shop` và chuyển chuyên trách.
 - **Các ca còn lại không bị xem nhẹ.** Tin nhắn thiếu thông tin (#3) có thể hỏi lại; lời đe dọa (#5) không phải bằng chứng; yêu cầu tiết lộ địa chỉ và trừ điểm (#10) cần từ chối cả hai phần. Chúng vẫn là kiểm thử cần giữ trong bộ kịch bản, nhưng ưu tiên demo là lỗi nguồn sự thật (#1) và rò rỉ riêng tư (#7).
+
+## §3. Khi AI sai — phần TV2
+
+### 3.1. Quy ước dữ liệu và thời gian cho thiết kế
+
+Đây là phương án thiết kế với dữ liệu giả, chưa phải kết quả chạy prototype hay chính sách Shopee. Để TV3 dựng nhất quán, dùng hồ sơ giả `DH-DEMO-01`, thời điểm kiểm thử **14:00 ngày 13/11/2026** và hạn gửi yêu cầu khiếu nại giả **18:00 ngày 14/11/2026** (còn **28 giờ** tại thời điểm kiểm thử). **Hạn shop phản hồi bằng chứng = thời điểm gửi thành công yêu cầu bằng chứng + 24 giờ**. Ví dụ trưởng nhóm duyệt và gửi thành công lúc 17:00 ngày 13/11 thì hạn là 17:00 ngày 14/11. Khi còn chờ duyệt hoặc gửi thất bại, chưa bắt đầu tính 24 giờ và chưa hiện hạn shop như thể đã gửi. Thời gian còn lại tính lại theo đồng hồ mô phỏng. Không dùng các mốc này như thời hạn thật. Nếu chưa có hạn gửi khiếu nại từ nguồn hồ sơ đã xác minh, hiện “Chưa xác minh thời hạn — cần nhân viên kiểm tra”, không suy ra từ chính sách tham khảo. Hai hạn độc lập: chờ shop phản hồi không gia hạn thời gian người mua gửi yêu cầu.
+
+Mục tiêu phản hồi của trưởng nhóm trong mô phỏng: 4 giờ từ lúc chuyển thành công. Quá mốc thì hiển thị “Quá thời gian phản hồi dự kiến” và gửi nhắc nội bộ, không tự đóng hồ sơ, không hứa gia hạn hay tự giữ quyền khiếu nại vì không có tool đó. Nếu thời hạn yêu cầu đến gần, chỉ rõ hạn đang có và hướng dẫn người mua gửi yêu cầu qua luồng sẵn có; chuyển hồ sơ không thay thế việc gửi yêu cầu.
+
+### 3.2. Ca #1 — mô tả đã bị sửa sau khi đặt
+
+**Đường đi:** thiếu căn cứ → chuyển người; người mua vẫn có thể bổ sung/sửa bằng chứng.
+
+**Câu AI nói nguyên văn:**
+
+> “Tôi là trợ lý AI. Tôi chưa có bản mô tả tại thời điểm bạn đặt hàng nên chưa thể xác định đơn này được mô tả là size L hay M. Mô tả hiện tại không đủ để kết luận khiếu nại của bạn đúng hay sai. Bạn có thể bổ sung ảnh xác nhận đơn hoặc yêu cầu nhân viên kiểm tra lịch sử. Tôi không tự hoàn tiền hoặc từ chối khiếu nại.”
+
+Nếu AI trước đó đã dùng nhầm bản hiện tại, thay phần mở đầu bằng:
+
+> “Tôi đã dùng mô tả hiện tại để đánh giá khiếu nại; đó là lỗi của tôi. Tôi rút lại nhận định đó. Hồ sơ này chưa được xác minh theo mô tả lúc đặt hàng.”
+
+Không nói đã khôi phục tiền/quyền lợi. Nếu hệ thống ghi nhận đã có hành động tài chính, chuyển trưởng nhóm kèm trạng thái thực tế; không tuyên bố hoàn tác khi chưa có kết quả.
+
+**Người mua thấy:**
+
+- Nhãn **“Chưa đủ căn cứ — thiếu mô tả lúc đặt”**, không hiện phần trăm tự tin không được đo.
+- Hai vùng bằng chứng tách biệt: “Mô tả lúc đặt: chưa có nguồn xác minh”; “Mô tả hiện tại: size M — không dùng làm căn cứ duy nhất”. Lời người mua “lúc đặt size L” được gắn nhãn **lời khai**, không giả làm bản lưu của sàn.
+- Nút **“Bổ sung bằng chứng”**, **“Sửa thông tin đơn”**, **“Yêu cầu nhân viên kiểm tra”**; không có nút AI kết luận hoàn tiền hoặc từ chối.
+- Thẻ thời hạn dùng dữ liệu giả ở §3.1, nguồn “hồ sơ mô phỏng”; tách hạn gửi yêu cầu khỏi hạn người bán phản hồi.
+
+**Bước tiếp theo và thông báo:**
+
+1. Nếu chưa chọn đúng đơn, hỏi “Bạn chọn đơn nào cần kiểm tra?” trước khi gửi yêu cầu bằng chứng/chuyển hồ sơ. Không đoán đơn từ nội dung chat.
+2. Khi đơn đã được xác nhận, người mua có thể thêm ảnh có xem trước và che thông tin riêng tư. Ghi nhận ảnh là bằng chứng cần kiểm tra; không coi ảnh tải lên là lịch sử đã xác minh.
+3. Nếu người mua bấm chuyển, hoặc dữ liệu hai bên mâu thuẫn/không có nguồn lịch sử, gọi `chuyen_truong_nhom`. Chỉ sau khi thành công mới hiện “Đã chuyển hồ sơ cho trưởng nhóm”. Nếu lỗi, hiện “Chưa chuyển được hồ sơ”, giữ nội dung và cho thử lại; không tạo hàng đợi thành công giả.
+4. Trưởng nhóm được báo ngay sau chuyển thành công, thấy mã đơn, phát biểu hai bên, nguồn nào thiếu, bằng chứng đã che dữ liệu riêng tư và các hạn. Mục tiêu phản hồi 4 giờ theo §3.1.
+5. Người bán nhận yêu cầu bằng chứng qua mẫu đã được duyệt theo §4, thấy nội dung tranh chấp trung lập, bằng chứng phù hợp và hạn phản hồi 24 giờ; không thấy số điện thoại/địa chỉ người mua. Chưa có yêu cầu gửi thành công thì không hiển thị “đã báo shop”.
+6. Nếu người mua không làm gì: không chuyển tiền, không từ chối, không gửi yêu cầu lặp. Thời hạn thực tế vẫn có thể trôi qua; giao diện không hứa giữ quyền lợi. Nếu shop quá hạn, chuyển/nhắc trưởng nhóm xét hồ sơ, không mặc định shop sai.
+
+**Lựa chọn và phương án loại:** chọn **dừng kết luận và chuyển người**, cho phép bổ sung bằng chứng trong lúc chờ. Loại “chỉ hỏi khách thêm ảnh liên tục” vì khách có thể không có bản lưu và bị hết hạn; nhân viên mới có thể kiểm tra nguồn có thẩm quyền. Loại “trả lời kèm giới hạn rồi vẫn bác đơn theo trang hiện tại” vì câu cảnh báo không sửa được việc dùng sai nguồn (#1). Không tự cho người mua thắng vì lời kể chưa được đối chiếu với người bán (#2).
+
+**Loại lỗi:** dùng nhầm phiên bản là lỗi **hệ thống**, phải nhận lỗi cụ thể và rút lại nhận định. Không có bản lưu là giới hạn dữ liệu, không đổ lỗi cho người mua. Nếu khách chọn nhầm đơn, đó là lỗi đầu vào: cho chọn lại, xóa bản nháp gắn với đơn cũ và xác nhận lại trước khi gửi. Nếu hệ thống đọc đúng trang hiện tại nhưng xem nó là căn cứ cho giao dịch quá khứ, đây còn là lỗi **ngữ cảnh**: phải đổi thiết kế nguồn chứng cứ, không chỉ đổi cách xin lỗi.
+
+### 3.3. Ca #7 — đòi số điện thoại của shop
+
+**Đường đi:** từ chối phần ngoài phạm vi → trả về cách giải quyết trong kênh sàn; không chuyển nhân viên chỉ để xin ngoại lệ riêng tư.
+
+**Câu AI nói nguyên văn:**
+
+> “Tôi không cung cấp hoặc xác nhận số điện thoại, địa chỉ riêng của shop. Bạn có thể trao đổi qua mục Chat với shop trong ứng dụng. Nếu shop chưa phản hồi về khiếu nại, tôi có thể hướng dẫn bổ sung bằng chứng hoặc chuyển hồ sơ cho nhân viên xem xét; nhân viên cũng không cung cấp thông tin liên hệ riêng của bên kia.”
+
+**Người mua thấy:** nhãn “Bảo vệ thông tin của cả hai bên”, hướng dẫn mở Chat với shop và nút **“Tiếp tục khiếu nại”**. Khi bấm tiếp tục, hỏi đúng đơn nếu chưa có, rồi hiện “Bổ sung bằng chứng” / “Yêu cầu nhân viên xem xét”. Không có ô xem số điện thoại, không hiện một phần số để xác nhận, không có nút “xin ngoại lệ”. Mở Chat là điều hướng giao diện sẵn có, không phải tool nhắn tin mới và không tự gửi lời người mua cho shop.
+
+**Bước tiếp theo và thông báo:** từ chối riêng tư được hiển thị ngay, không cần người duyệt. Chỉ yêu cầu thông tin đơn khi người dùng chọn tiếp tục khiếu nại, không ép cung cấp đơn để nhận câu trả lời riêng tư. Với tin #7 đơn thuần, không gửi thông báo cho shop và không tự tạo hồ sơ chuyển người. Nếu người mua muốn nhân viên xử lý tranh chấp, chuyển đúng hồ sơ sau xác nhận; trưởng nhóm được báo ngay khi thành công và áp dụng mốc phản hồi §3.1. Nếu khách không chọn gì thêm, không có hành động hồ sơ. Nếu phát hiện hệ thống từng lộ dữ liệu, dừng xuất dữ liệu, chuyển trưởng nhóm xử lý sự cố qua quy trình nội bộ; không hứa “thu hồi” tin đã tới người nhận.
+
+**Lựa chọn và phương án loại:** chọn **trả lời kèm giới hạn và bước thay thế**, dừng hoàn toàn hành vi cung cấp dữ liệu. Loại hỏi “Bạn cần số để làm gì?” vì mục đích không đổi ranh giới riêng tư và dễ tạo kỳ vọng được cấp. Loại chuyển nhân viên mặc định vì gây chờ vô ích và có thể khiến khách hiểu rằng nhân viên sẽ cung cấp số. Không chỉ nói “không được” rồi kết thúc vì khách vẫn cần cách xử lý tranh chấp.
+
+**Loại lỗi:** yêu cầu ngoài phạm vi không phải bằng chứng người dùng làm sai; giải thích trung tính, không quy kết ý đồ. Nếu AI thực sự tiết lộ dữ liệu, đó là lỗi **hệ thống**, cần nhận lỗi và xử lý sự cố. Nếu công cụ tìm được số đúng nhưng đưa cho bên tranh chấp, đó là sai **ngữ cảnh/quyền truy cập**, không phải lỗi độ chính xác của số.
+
+### 3.4. Ba nguyên tắc UX và chỉ dẫn vị trí cho TV3
+
+Các mã P1–P3 dưới đây là vị trí **cần dựng**, chưa phải ảnh prototype đã tồn tại. TV3 đánh đúng số trên 1–2 ảnh ở §5 sau khi thực hiện.
+
+| Nguyên tắc | Chỗ thể hiện cụ thể | Người dùng làm được gì |
+|---|---|---|
+| **G10 — Thu hẹp phạm vi khi nghi ngờ** | **P1**, nhãn thiếu mô tả lúc đặt và câu mở đầu ca #1; khóa đường phán quyết | Bổ sung căn cứ hoặc chuyển nhân viên, không bị ép nhận kết luận từ dữ liệu thiếu |
+| **G11 — Giải thích vì sao** | **P2**, thẻ nguồn phân biệt mô tả lúc đặt, mô tả hiện tại và lời khai; thông báo riêng tư ở #7 | Hiểu vì sao chưa thể kết luận hoặc vì sao không cung cấp số điện thoại |
+| **G9 — Sửa dễ dàng** | **P3**, “Sửa thông tin đơn”, xem trước bản nháp bằng chứng, “Sửa nội dung” / “Hủy gửi” trước xác nhận | Chọn lại đơn, sửa/che dữ liệu trước khi gửi; sau gửi chỉ đính chính, không giả vờ thu hồi được tin |
+
+**Lỗi sửa câu chữ không cứu được:** câu “Tôi có thể sai” không ngăn `tu_choi_khieu_nai` đóng hồ sơ dựa trên mô tả mới (#1); lời xin lỗi không thu hồi được số điện thoại đã lộ (#7). Thiết kế phải chặn tool tài chính/phạt trong luồng này, yêu cầu nguồn đúng phiên bản và lọc dữ liệu riêng tư trước khi đưa vào ngữ cảnh AI lẫn trước khi xuất ra UI/bản nháp. Prototype chỉ mô phỏng các rào chặn này; không xem đó là bằng chứng đã triển khai bảo mật hệ thống thật.
+
+## §4. Mức tự chủ — phần TV2
+
+### 4.1. Quyết định cho cả 5 tool
+
+Phương án dưới đây giữ phạm vi §1: AI hỗ trợ hồ sơ, không phân xử tiền hay kỷ luật shop. **“Cấm” nghĩa là cấm AI gọi tool trong tính năng này**, không cấm nhân viên có thẩm quyền xử lý ở quy trình riêng. `soan_hoan_tien` theo đề là **thực hiện hoàn tiền**, không phải soạn đề xuất.
+
+| Tool | Mức và điều kiện | Sai thì ai chịu, có đảo được không? | Vì sao chọn; phương án loại; cái giá khi chờ |
+|---|---|---|---|
+| `yeu_cau_bang_chung` | Tách theo bên nhận: **tự làm có điều kiện với người mua**; **cần trưởng nhóm duyệt với người bán**. Ghi rõ hai nhánh này trong prototype; nếu không phân biệt được bên nhận/điều kiện thì không tự gửi. | Gửi sai đơn, lặp yêu cầu hoặc lộ dữ liệu khiến hai bên tốn công/mất riêng tư (#3, #7, #8); tin đã tới không thu hồi được. | Tự gửi mẫu chuẩn cho người mua tránh chờ ở #4; chỉ gửi khi đúng đơn, xác định phần thiếu và không trùng yêu cầu. Loại tự gửi vô điều kiện vì #3/#8, loại bắt duyệt mọi tin vì chờ không cần thiết, loại cấm vì #1/#9 cần căn cứ. Yêu cầu shop cần trưởng nhóm duyệt để bảo đảm trung lập; chờ duyệt có thể làm chậm nên hiện trạng thái và cảnh báo hạn khiếu nại. |
+| `chuyen_truong_nhom` | **Tự làm** khi có đúng hồ sơ và thiếu nguồn lịch sử, bằng chứng mâu thuẫn, nghi hàng giả/sự cố riêng tư, hoặc người mua yêu cầu hỗ trợ. Không chuyển tự động chỉ vì tin #7. | Chuyển nhầm làm trưởng nhóm tốn thời gian và khách chờ; có thể trả lại/định tuyến lại. Nội dung chuyển vẫn phải tối thiểu và đã lọc dữ liệu. | Loại cần duyệt thêm vì làm chậm cứu ca #1 mà chưa có giao dịch tiền; loại cấm vì AI không thể tự xác minh lịch sử. Cho hủy yêu cầu chuyển khi còn chờ; nếu nhân viên đã nhận thì cho gửi đính chính, không hứa xóa nội dung đã đọc. |
+| `soan_hoan_tien` | **Cấm AI gọi**. Có thể tạo bản tóm tắt đề xuất, không có hiệu lực chi tiền; nhân viên xử lý ngoài luồng AI sau đối chiếu. | Hoàn sai khiến người bán mất tiền/hàng (#2, #5, #9), tiền đã về người mua nên khó đảo. | Loại tự làm vì lời khai/đe dọa không phải căn cứ. Loại chỉ cần người mua duyệt vì người hưởng tiền không thể tự phán quyết tranh chấp. Nhân viên duyệt có thể phù hợp ở hệ thống khác, nhưng phạm vi hiện tại chưa có tool xác minh lịch sử/quy trình quyết toán nên không mở quyền này. Chờ có thể làm chậm người mua đúng (#4): hướng dẫn gửi yêu cầu ngay, không hứa trả tiền ngay. |
+| `tu_choi_khieu_nai` | **Cấm AI gọi**; giữ hồ sơ để người có thẩm quyền xem xét ở luồng riêng. | Từ chối sai làm người mua mất tiền/quyền lợi (#1, #8); tiền về người bán, khó đảo. | Loại tự làm và duyệt chỉ từ một bên vì mô tả mới hoặc shop im lặng không đủ kết luận. Loại cổng xác nhận sơ sài vì người duyệt vẫn có thể thiếu nguồn cũ. Chờ kéo dài bất định và tiền của shop; nêu thời hạn phản hồi và chuyển nhân viên, không lấy hết hạn làm quyết định tự động. |
+| `phat_shop` | **Cấm AI gọi** trong khiếu nại thường. Nghi hàng giả thì chuyển trưởng nhóm để định tuyến chuyên trách; không tự khẳng định đã chuyển chuyên trách. | Shop bị trừ uy tín/khóa sai, ảnh hưởng nhiều đơn và sinh kế (#5, #6, #10); khôi phục khó. | Loại tự làm hoặc một nút khách duyệt vì không phải thẩm quyền người mua/AI. Loại chỉ cần trưởng nhóm duyệt trong luồng này vì thiếu quy trình điều tra chuyên trách. Chờ có thể trì hoãn xử lý nghi hàng giả: chuyển hồ sơ kèm mức khẩn, không cam kết hình phạt. |
+
+### 4.2. Cổng duyệt và quy tắc vận hành
+
+**Tách `yeu_cau_bang_chung` thành hai nhánh theo người nhận** (không thêm quyền phân xử): nhánh người mua kiểm tra điều kiện → gửi mẫu chuẩn; nhánh người bán tạo nháp → trưởng nhóm xem/sửa → duyệt → gửi. Đây là thay đổi có chủ đích so với đề xuất duyệt mọi lần gửi ban đầu, đã được TV2 lựa chọn; ý kiến TV1/TV3 chưa ghi nhận. Nếu hệ thống không tách được hai nhánh, dùng mức cần trưởng nhóm duyệt, không ngầm cho phép tự gửi mọi nơi.
+
+- Bản duyệt phải hiện: mã đơn, bên nhận, nội dung nguyên văn, bằng chứng đang có, chính xác phần còn thiếu, dữ liệu đã che và hạn phản hồi có nguồn. Cảnh báo “Tin gửi đi không thu hồi được”. Không hỏi lại tài liệu đã có; nếu cần ảnh rõ hơn phải nêu thiếu điểm nào.
+- **Xin bằng chứng từ người mua:** AI tự gửi một mẫu chuẩn sau khi đã xác nhận đúng đơn, bên nhận, phần thiếu cụ thể; kiểm tra hồ sơ chưa có tài liệu đó, chưa gửi yêu cầu trùng và nội dung không chứa dữ liệu riêng của bên kia. Ví dụ: “Đơn DH-DEMO-01 còn thiếu ảnh tem size trên áo bạn nhận. Bạn có thể bổ sung ảnh tem; hãy che thông tin cá nhân trước khi gửi.” Không tự đặt hạn bổ sung khi nguồn hồ sơ không cung cấp. Nếu điều kiện không đạt, hỏi làm rõ hoặc chuyển trưởng nhóm, không tự gửi.
+- **Người mua nộp bằng chứng là thao tác khác:** chọn ảnh → xem trước/che thông tin → bấm “Nộp bằng chứng” vào hồ sơ đúng đơn. Đây là luồng tải tài liệu có sẵn được mock trong prototype, không phải `yeu_cau_bang_chung`. Không bấm nộp thì không có ảnh mới trong hồ sơ. Người mua không phải duyệt lời xin bằng chứng gửi cho chính mình. Khi không đồng ý với yêu cầu, có nút “Đã gửi tài liệu này” / “Sửa thông tin đơn” / “Không có bằng chứng này”; AI kiểm tra lại và gửi đính chính hoặc chuyển người, không lặp mẫu và không gọi đó là thu hồi tin đã gửi.
+- Với người bán: trưởng nhóm kiểm tra tính trung lập, đúng bên nhận và hạn rồi bấm duyệt. Người mua không được duyệt nội dung thay người bán/trưởng nhóm. Mục tiêu duyệt 4 giờ là giả định thiết kế; hết mốc thì nhắc nội bộ, không tự gửi, không xem im lặng là chấp thuận.
+- Mỗi bản duyệt gắn với đúng mã đơn, bên nhận và phiên bản nội dung; đổi bất kỳ trường nào phải duyệt lại. Chặn nhấp đúp/gửi lại cùng yêu cầu; nếu kết quả gửi chưa rõ, kiểm tra trạng thái trước khi thử lại.
+- Chỉ hiện “đã gửi/đã chuyển” khi nhận kết quả thành công. Nếu gửi nhầm, cho đính chính qua quy trình duyệt, không gọi đó là hoàn tác tin đã tới. Không dựng dữ liệu liên hệ thật hoặc để mô hình xem số rồi trông chờ câu chữ từ chối.
+- Với chuyển hồ sơ, hiển thị nút “Hủy chuyển” chỉ khi trạng thái còn cho phép. Nếu hủy thất bại hoặc người đã nhận, hiển thị đúng kết quả và cho cập nhật thông tin. Đây là trạng thái mô phỏng của tool chuyển có thể đảo theo đề, chưa phải API thật.
+
+### 4.3. Tool khó xếp nhất và phương án để nhóm xác nhận
+
+Chọn `yeu_cau_bang_chung`: tự gửi giúp người mua đúng ở #4 nhanh hơn nhưng có thể gửi lặp #8 hoặc sai hồ sơ #3; bắt duyệt tất cả giảm lỗi gửi nhưng có thể gây chờ ở #1; cấm thì không thu được căn cứ cho #9. Sau review, TV2 chọn **tách hai nhánh: tự gửi mẫu chuẩn cho người mua khi đủ điều kiện; trưởng nhóm duyệt yêu cầu gửi shop**, còn người mua tự xác nhận khi nộp ảnh. Lý do đổi từ duyệt mọi yêu cầu: người mua duyệt lời xin bằng chứng gửi cho chính mình gây thao tác thừa và dễ nhầm với nộp tài liệu. Chưa ghi nhận đồng thuận của cả nhóm.
+
+**Chưa có bản ghi lựa chọn độc lập của ba thành viên. Không coi bảng dưới đây là ý kiến đã phát biểu hay đồng thuận thực tế.** Mỗi người tự xếp mọi tool rồi bổ sung kết quả thật; nếu nhóm đổi phương án, cập nhật cả §3, §4 và prototype.
+
+| Thành viên | Mức tự chọn cho tool khó nhất | Cái giá chấp nhận / kịch bản tham chiếu | Xác nhận sau thảo luận |
+|---|---|---|---|
+| TV1 | Chưa ghi nhận | Cần bổ sung lựa chọn thật | Chưa xác nhận |
+| TV2 — Ngô Duy Khánh | Tự gửi mẫu chuẩn cho người mua khi đủ điều kiện; trưởng nhóm duyệt yêu cầu gửi shop | Chặn gửi sai/lặp ở #3/#8 bằng kiểm tra đơn, phần thiếu và yêu cầu trùng; tránh chờ vô ích ở #4 | Đã chọn phương án này sau review; chưa có kết luận chung TV1/TV3 |
+| TV3 | Chưa ghi nhận | Cần bổ sung lựa chọn thật | Chưa xác nhận |
+
+### 4.4. Thử mức tự chủ trên kịch bản
+
+Đây là **kiểm tra logic trên giấy**, chưa xác minh bằng luồng bấm hoặc lời gọi tool thật.
+
+| Ca | AI làm gì theo mức đã đặt? | Cái sai có bị chặn? | Còn làm khi phải hỏi không? | Có bắt chờ vô ích không? |
+|---|---|---|---|---|
+| **#1 — mô tả bị sửa** | Nêu thiếu nguồn cũ; chỉ sau xác nhận đúng đơn mới tạo nháp xin bằng chứng/chuyển trưởng nhóm; không hoàn/từ chối. | Có ở mức thiết kế: tool phán quyết bị cấm; bản hiện tại không thay nguồn lúc đặt. | Chưa biết đơn phải hỏi; thiếu lịch sử không tự bịa; yêu cầu gửi shop phải có trưởng nhóm duyệt. | Không bắt khách tìm ảnh mãi mới được chuyển; vẫn có thời gian chờ nhân viên cần thiết. Hiện hạn gửi yêu cầu, không hứa gia hạn. |
+| **#7 — xin số shop** | Từ chối ngay phần riêng tư; hướng về Chat trong sàn; chỉ chuyển nếu người mua chọn giải quyết tranh chấp và đã xác nhận hồ sơ. | Có về logic: không có đường lấy/xuất dữ liệu liên hệ, kể cả khi khách đòi nhân viên cấp. | Không cần hỏi đơn để từ chối cung cấp số; phải hỏi đơn trước khi hành động hồ sơ. | Không tạo hàng đợi trưởng nhóm chỉ cho một yêu cầu xin số; trả lời và hướng dẫn tức thì. |
+| **#4 — shop nhận gửi nhầm** | Hướng dẫn gửi yêu cầu ngay; nếu thiếu ảnh tem và đủ điều kiện thì tự gửi mẫu xin ảnh, không hỏi lại nếu đã có. Người mua xem trước và tự bấm nộp ảnh ở bước riêng. Không thực hiện hoàn tiền bằng `soan_hoan_tien`. | Chặn lời hứa và chuyển tiền sớm; shop nhận nhầm vẫn phải gắn đúng đơn và lưu căn cứ. | Hỏi/chọn đơn nếu thiếu; không tự coi câu chat là kết quả xét duyệt; không tự nộp ảnh thay khách. | Hướng dẫn và xin ảnh theo mẫu chuẩn không chờ trưởng nhóm; yêu cầu shop và xét hoàn tiền mới chờ theo quy trình. Không hứa “hoàn tức thì”. |
+
+**Kiểm tra bổ sung #2 (người bán có căn cứ đúng):** không gọi hoàn tiền hay từ chối; hiện “chưa đủ căn cứ để kết luận”, lưu bằng chứng hai bên và hạn phản hồi, chuyển người nếu mâu thuẫn. Rào chặn phải bảo vệ cả người bán lẫn người mua, không chỉ ca #1.
+
+**Điểm còn phải kiểm tra trên prototype:** tool cấm không có nút thực hiện; đổi đơn làm mất hiệu lực bản duyệt cũ; nhấn gửi hai lần không tạo yêu cầu trùng; chuyển lỗi không báo thành công; #7 không lộ số ở tin nhắn, ảnh hay thẻ hồ sơ; các mốc thời gian cập nhật theo đồng hồ mô phỏng. TV3 đối chiếu P1–P3 và bổ sung ảnh ở §5.
+
+### 4.5. Mức tự chủ đổi lời hứa với người dùng
+
+Không dùng “AI sẽ giải quyết và hoàn tiền cho bạn”. Lời hứa phù hợp với quyền đã đặt là:
+
+> “Tôi giúp bạn chuẩn bị yêu cầu, bổ sung bằng chứng và chuyển hồ sơ khi cần. Nhân viên có thẩm quyền sẽ xem xét tranh chấp; việc chuyển hồ sơ không có nghĩa là yêu cầu hoàn tiền đã được duyệt.”
+
+**Bàn giao TV3:** lấy câu nguyên văn ở §3.2/§3.3; dựng trạng thái thiếu nguồn → bổ sung/sửa → duyệt gửi → kết quả gửi/chuyển; thể hiện rõ tự chuyển, cần duyệt gửi bằng chứng và cấm phân xử. §5, ảnh chụp, số liệu kiểm thử UI và kết quả demo vẫn thuộc phần triển khai tiếp theo, chưa được xác nhận ở đây.
 
 ## §6. Tốt là gì
 
