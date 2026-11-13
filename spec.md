@@ -188,8 +188,7 @@ Không dùng “AI sẽ giải quyết và hoàn tiền cho bạn”. Lời hứ
 - **File:** [prototype/index.html](prototype/index.html), HTML tĩnh, hai màn: người mua; người bán + khu trưởng nhóm mô phỏng riêng. Ba ca #1/#7/#4; không backend, không gọi AI thật.
 - **Phần mock:** ảnh minh họa cố định chỉ có tên/mô tả, không có tải ảnh thật hay xử lý che ảnh tự động; người dùng xác nhận đã che trước khi nộp. Chọn đơn chỉ có DH-DEMO-01, “Sửa thông tin đơn” hiện quay lại xác nhận đơn này, chưa có nhiều đơn để đổi. Mở Chat với shop là thông báo mô phỏng điều hướng. Thời điểm gửi shop cố định 17:00 ngày 13/11/2026 trong phiên mô phỏng; hạn được tính cộng 24 giờ từ mốc này, không phải đồng hồ thật.
 - **Luồng đã bổ sung:** chưa có đơn thì chặn gửi/chuyển; nộp ảnh giữ trạng thái qua các tab; mẫu xin ảnh ca #4 chỉ gửi một lần; chuyển/hủy chuyển; sửa bản nháp gửi shop; duyệt rồi mới gửi và tính hạn; người bán nhập phản hồi vào hồ sơ. Ca #7 không tự chuyển chỉ vì xin số.
-- **Ảnh minh chứng hiện hành — dùng đúng 2 ảnh:** [kiem-tra-1.png](prototype/kiem-tra-1.png) (ca #1 đã chuyển, thiếu nguồn cũ, có ảnh trong hồ sơ); [kiem-tra-2.png](prototype/kiem-tra-2.png) (đã duyệt, shop nhận và phản hồi, hạn tính từ lúc gửi). Ba ảnh anh-1/2/3.png là bản cũ, không dùng làm bằng chứng cho bản sửa hiện tại.
-
+- **Ảnh minh chứng hiện hành — dùng đúng 2 ảnh:** [kiem-tra-1.png](prototype/kiem-tra-1.png) (ca #1 đã chuyển, thiếu nguồn cũ, có ảnh trong hồ sơ); [kiem-tra-2.png](prototype/kiem-tra-2.png) (đã duyệt, shop nhận và phản hồi, hạn tính từ lúc gửi).
 | Số | Vị trí cụ thể | Nguyên tắc / mức tự chủ |
 |---|---|---|
 | ① | Ảnh 1: thiếu mô tả lúc đặt, không kết luận | G10 / thu hẹp khi thiếu nguồn |
@@ -264,7 +263,7 @@ Ba tiêu chí dưới đây chấm **Pass/Fail** trên từng ca; “chưa có b
 - [x] Đã có tên nhóm, họ tên, mã học viên và phần việc của 3 thành viên; nhóm tự đối chiếu mã học viên.
 - [x] Bổ sung bàn/zone nếu được yêu cầu; TV1 xác nhận hoặc sửa phương án đề xuất và cả nhóm xác nhận kết luận tại §4.3.
 - [x] Prototype có file, 11 kiểm tra trình duyệt đạt, có 2 ảnh hiện hành đánh số; xem phạm vi và giới hạn ở §5–§6.
-- [x] Sau demo, ghi ca lạ và phản hồi thực tế vào bảng §7; cập nhật kết quả chấm thử §6.
+- [x] Sau demo, ghi ca lạ và phản hồi thực tế vào bảng §7; cập nhật kết quả chấm thử §6. (Chưa có demo thật; bảng §7 hiện là kịch bản diễn tập.)
 - [x] Kiểm tra repo nộp công khai, đúng tên `K5-L3B-Day05-T4-<tên nhóm>` và mở được ở cửa sổ ẩn danh.
 
 ### Ghi chú đóng gói bài nộp
