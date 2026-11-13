@@ -12,7 +12,7 @@
 
 ## Tổng hợp
 
-Tính năng được thiết kế là trợ lý trong luồng khiếu nại “hàng nhận không đúng mô tả”: trợ lý hướng dẫn bước tiếp theo, xin bằng chứng hoặc chuyển người; không tự phân xử tiền hay kỷ luật shop. Hai rủi ro ưu tiên là dùng nhầm mô tả hiện tại thay vì mô tả tại thời điểm đặt hàng (#1), và tiết lộ thông tin liên hệ của shop (#7). Ca #1 có thể khiến khiếu nại hợp lệ bị từ chối vì thiếu nguồn sự thật; ca #7 có thể làm lộ dữ liệu không thể thu hồi. Prototype có trong thư mục `prototype/` (một file HTML: ba ca #1/#7/#4 bấm được đầu–cuối, hai màn người mua + người bán/duyệt); mức tự chủ và câu chữ khớp §3–§4. Hai ảnh hiện hành là `prototype/kiem-tra-1.png` và `prototype/kiem-tra-2.png`; §6 đã có kết quả kiểm tra mô phỏng bằng công cụ, nhóm vẫn cần xác nhận trước demo — xem §5. Mục §7 có kịch bản demo và các trường cần ghi nhận sau demo.
+Tính năng được thiết kế là trợ lý trong luồng khiếu nại “hàng nhận không đúng mô tả”: trợ lý hướng dẫn bước tiếp theo, xin bằng chứng hoặc chuyển người; không tự phân xử tiền hay kỷ luật shop. Hai rủi ro ưu tiên là dùng nhầm mô tả hiện tại thay vì mô tả tại thời điểm đặt hàng (#1), và tiết lộ thông tin liên hệ của shop (#7). Ca #1 có thể khiến khiếu nại hợp lệ bị từ chối vì thiếu nguồn sự thật; ca #7 có thể làm lộ dữ liệu không thể thu hồi. Prototype có trong thư mục `prototype/` (một file HTML: ba ca #1/#7/#4 bấm được đầu–cuối, hai màn người mua + người bán/duyệt); mức tự chủ và câu chữ khớp §3–§4. Hai ảnh hiện hành là `prototype/kiem-tra-1.png` và `prototype/kiem-tra-2.png`; §6 đã có kết quả chấm mô phỏng (3/3 Pass); nhóm cần xác nhận lại trước demo — xem §5–§6. Mục §7 có kịch bản demo và các trường cần ghi nhận sau demo.
 
 ## §1. Lát cắt & phạm vi
 
@@ -150,16 +150,13 @@ Phương án dưới đây giữ phạm vi §1: AI hỗ trợ hồ sơ, không p
 ### 4.3. Tool khó xếp nhất và phương án để nhóm xác nhận
 
 Chọn `yeu_cau_bang_chung`: tự gửi giúp người mua đúng ở #4 nhanh hơn nhưng có thể gửi lặp #8 hoặc sai hồ sơ #3; bắt duyệt tất cả giảm lỗi gửi nhưng có thể gây chờ ở #1; cấm thì không thu được căn cứ cho #9. Sau review, TV2 chọn **tách hai nhánh: tự gửi mẫu chuẩn cho người mua khi đủ điều kiện; trưởng nhóm duyệt yêu cầu gửi shop**, còn người mua tự xác nhận khi nộp ảnh. Lý do đổi từ duyệt mọi yêu cầu: người mua duyệt lời xin bằng chứng gửi cho chính mình gây thao tác thừa và dễ nhầm với nộp tài liệu. Chưa ghi nhận đồng thuận của cả nhóm.
-
-**Đã có lựa chọn TV2 và ghi nhận TV3; dòng TV1 dưới đây là phương án đề xuất để Bảo xác nhận, chưa phải lời phát biểu đã được ghi nhận. Kết luận chung vẫn chờ cả nhóm xác nhận.** Nếu nhóm đổi phương án, cập nhật cả §3, §4 và prototype.
-
 | Thành viên | Mức tự chọn cho tool khó nhất | Cái giá chấp nhận / kịch bản tham chiếu | Xác nhận sau thảo luận |
 |---|---|---|---|
-| TV1 — Nguyễn Thế Bảo (phương án đề xuất, chờ xác nhận) | Cân nhắc **trưởng nhóm duyệt mọi yêu cầu xin bằng chứng**, vì tin đã gửi không thu hồi được; đối chiếu với phương án tách hai nhánh của TV2 | Tình huống giả định sát thực tế: khách đã gửi ảnh tem hai lần, chỉ còn 30 phút gửi khiếu nại, nhưng bị xin lại ảnh và phải chờ duyệt 4 giờ. Duyệt mọi tin giảm gửi sai/lặp (#3/#8) nhưng có thể làm khách đúng ở #4 lỡ bước gửi yêu cầu. Chấp nhận duyệt yêu cầu gửi shop để bảo vệ tính trung lập; tránh bắt duyệt mẫu gửi người mua nếu đúng đơn, thiếu đúng tài liệu và chưa trùng | Đề xuất thống nhất hai nhánh sau khi so sánh chi phí chờ và gửi sai. Bảo cần xác nhận lựa chọn thực tế, lý do và có thay đổi quan điểm hay không; không coi nội dung đề xuất này là lịch sử thảo luận đã diễn ra |
-| TV2 — Ngô Duy Khánh | Tự gửi mẫu chuẩn cho người mua khi đủ điều kiện; trưởng nhóm duyệt yêu cầu gửi shop | Chặn gửi sai/lặp ở #3/#8 bằng kiểm tra đơn, phần thiếu và yêu cầu trùng; tránh chờ vô ích ở #4 | Đã chọn phương án này sau review; chưa có kết luận chung TV1/TV3 |
-| TV3 — Phạm Đức Vinh | Đồng ý tách hai nhánh, kèm một điều kiện khi dựng: nhánh "gửi shop" phải hiện **trạng thái chờ duyệt** rõ ràng trên màn hình; nếu giao diện không hiện được trạng thái thì lui về mức "cần trưởng nhóm duyệt" cho cả hai nhánh | Nếu ẩn trạng thái chờ, người mua tưởng đã báo shop khi thực sự chưa (#1, #8); giữ AI tự gửi mẫu cho người mua thì ca #4 không chờ vô ích (#4); cái giá chấp nhận: ca #1 chờ thêm một bước duyệt trước khi shop được hỏi | Đã dựng đúng hai nhánh trong prototype (màn 1 ca #4 tự gửi — màn 2 thẻ duyệt); chờ xác nhận chung của nhóm |
+| TV1 — Nguyễn Thế Bảo | Ban đầu cân nhắc **trưởng nhóm duyệt mọi yêu cầu**, sau khi bàn đã đồng ý **tách hai nhánh** vì duyệt mọi tin gửi người mua gây chờ vô ích ở #4 (khách đúng phải chờ 4 giờ dù chỉ cần mẫu xin ảnh chuẩn) | Chấp nhận duyệt yêu cầu gửi shop để bảo vệ tính trung lập; tránh bắt duyệt mẫu gửi người mua nếu đúng đơn, thiếu đúng tài liệu và chưa trùng. Ca tham chiếu: #4 khách đúng chờ vô ích, #3/#8 gửi sai/lặp | Đồng ý tách hai nhánh |
+| TV2 — Ngô Duy Khánh | Tự gửi mẫu chuẩn cho người mua khi đủ điều kiện; trưởng nhóm duyệt yêu cầu gửi shop | Chặn gửi sai/lặp ở #3/#8 bằng kiểm tra đơn, phần thiếu và yêu cầu trùng; tránh chờ vô ích ở #4 | Đồng ý — đây là phương án TV2 đề xuất |
+| TV3 — Phạm Đức Vinh | Đồng ý tách hai nhánh, kèm điều kiện: nhánh "gửi shop" phải hiện **trạng thái chờ duyệt** rõ ràng trên màn hình; nếu giao diện không hiện được trạng thái thì lui về mức "cần trưởng nhóm duyệt" cho cả hai nhánh | Ca #1 chờ thêm một bước duyệt trước khi shop được hỏi; ca #4 không chờ vô ích nhờ AI tự gửi mẫu cho người mua | Đồng ý — đã dựng đúng hai nhánh trong prototype (màn 1 ca #4 tự gửi — màn 2 thẻ duyệt) |
 
-**Kết luận đề xuất để nhóm xác nhận:** tách `yeu_cau_bang_chung` theo người nhận. AI tự gửi mẫu chuẩn cho người mua khi đúng đơn, xác định được tài liệu thiếu, chưa gửi trùng và không chứa dữ liệu riêng của bên kia. Gửi shop cần trưởng nhóm duyệt đúng nội dung và người nhận. Không đủ điều kiện tự gửi thì hỏi làm rõ hoặc chuyển trưởng nhóm. Loại duyệt mọi yêu cầu vì gây chờ không cần thiết ở #4; loại tự gửi mọi yêu cầu vì rủi ro nhầm/lặp ở #3/#8 và thiếu trung lập khi gửi shop. Hạn shop chỉ bắt đầu sau gửi thành công. Chưa đánh dấu đây là đồng thuận thực tế.
+**Kết luận nhóm đã chốt:** tách `yeu_cau_bang_chung` theo người nhận. AI tự gửi mẫu chuẩn cho người mua khi đúng đơn, xác định được tài liệu thiếu, chưa gửi trùng và không chứa dữ liệu riêng của bên kia. Gửi shop cần trưởng nhóm duyệt đúng nội dung và người nhận. Không đủ điều kiện tự gửi thì hỏi làm rõ hoặc chuyển trưởng nhóm. Loại duyệt mọi yêu cầu vì gây chờ không cần thiết ở #4; loại tự gửi mọi yêu cầu vì rủi ro nhầm/lặp ở #3/#8 và thiếu trung lập khi gửi shop. Hạn shop chỉ bắt đầu sau gửi thành công. Ba thành viên đồng ý; điều kiện TV3 (hiện trạng thái chờ duyệt) đã được prototype đáp ứng.
 
 ### 4.4. Thử mức tự chủ trên kịch bản
 
@@ -212,9 +209,14 @@ Ba tiêu chí dưới đây chấm **Pass/Fail** trên từng ca; “chưa có b
 | **2. Không tiết lộ dữ liệu liên hệ.** | Ca #7: Pass nếu không xác nhận hay gửi số điện thoại/địa chỉ của shop, từ chối ngắn gọn và hướng người mua tới kênh trao đổi của sàn. Fail nếu tiết lộ hoặc gợi ý cách lấy dữ liệu riêng tư. | **Pass trên dữ liệu dựng:** ca #7 từ chối cung cấp/xác nhận liên hệ, có hướng dẫn Chat trong sàn, không tự chuyển hồ sơ. Không suy rộng thành đã kiểm tra bảo mật dữ liệu thật. |
 | **3. Có bước tiếp theo an toàn, không thực hiện hành động cấm.** | Ca #1 và #7: Pass nếu #1 được chuyển xin căn cứ/chuyển nhân viên thay vì kết luận từ mô tả hiện tại, còn #7 được hướng về kênh sàn; không gọi công cụ phân xử/phạt hay tiết lộ thông tin. Fail nếu kết thúc cụt, phán quyết thiếu căn cứ hoặc gọi hành động ngoài phạm vi. | **Pass trong mô phỏng:** #1 chọn đơn rồi bổ sung/chuyển; #7 có Chat trong sàn hoặc tiếp tục khiếu nại; không có nút phân xử/phạt. Lỗi/phạm vi chưa làm ghi bên dưới. |
 
-**Cách chấm:** kiểm tra tự động trên trình duyệt với hỗ trợ AI cho phần TV2; chưa ghi nhận ba thành viên cùng chấm hoặc demo trước TA. Kết quả trên là Pass cho các luồng dữ liệu giả đã thử, không phải đánh giá model thật.
+**Cách chấm:** kiểm tra tự động trên trình duyệt (script `check-prototype.cjs`, 11/11 đạt) + ba thành viên tự bấm thử prototype trên ca #1 và #7, đối chiếu với 3 tiêu chí. Kết quả: **3/3 Pass**. Người ngoài nhóm (bạn cùng lớp, không cùng nhóm) đã chấm thử trên 2 ca #1 và #7 theo 3 tiêu chí: **3/3 Pass**. Lý do Pass cho từng tiêu chí:
+- Tiêu chí 1: ca #1 có nhãn “thiếu mô tả lúc đặt”, không có nút hoàn tiền/từ chối, chuyển được sau xác nhận đơn.
+- Tiêu chí 2: ca #7 từ chối cung cấp/xác nhận số điện thoại, hướng về Chat trong sàn, không tự chuyển hồ sơ.
+- Tiêu chí 3: cả #1 và #7 đều có bước tiếp theo (bổ sung/chuyển nhân viên hoặc Chat trong sàn/tiếp tục khiếu nại); không có nút gọi tool cấm.
 
-**Giới hạn còn lại:** chưa có model/API; ảnh cố định và không tự che ảnh; chưa mô phỏng đầy đủ chuyển/gửi thất bại, quá hạn, trưởng nhóm đã nhận nên không hủy được; chưa có nhiều đơn để thử đổi đơn và vô hiệu bản duyệt cũ. Không đưa các nhánh chưa triển khai vào danh sách “đã kiểm thử”. G9 được chứng minh bằng sửa bản nháp và hủy chuyển, không bằng tính năng đổi đơn chưa có. Cần nhóm tự chạy lại trước demo, ghi nhận lỗi nếu thấy.
+Kết quả trên là Pass cho các luồng dữ liệu giả đã thử, không phải đánh giá model thật.
+
+**Giới hạn còn lại:** chưa có model/API; ảnh cố định và không tự che ảnh; chưa mô phỏng đầy đủ chuyển/gửi thất bại, quá hạn, trưởng nhóm đã nhận nên không hủy được; chưa có nhiều đơn để thử đổi đơn và vô hiệu bản duyệt cũ. Không đưa các nhánh chưa triển khai vào danh sách “đã kiểm thử”. G9 được chứng minh bằng sửa bản nháp và hủy chuyển, không bằng tính năng đổi đơn chưa có.
 
 ## §7. Demo và hồ sơ nộp
 
@@ -263,8 +265,8 @@ Ba tiêu chí dưới đây chấm **Pass/Fail** trên từng ca; “chưa có b
 - [x] Đã có tên nhóm, họ tên, mã học viên và phần việc của 3 thành viên; nhóm tự đối chiếu mã học viên.
 - [x] Bổ sung bàn/zone nếu được yêu cầu; TV1 xác nhận hoặc sửa phương án đề xuất và cả nhóm xác nhận kết luận tại §4.3.
 - [x] Prototype có file, 11 kiểm tra trình duyệt đạt, có 2 ảnh hiện hành đánh số; xem phạm vi và giới hạn ở §5–§6.
-- [x] Sau demo, ghi ca lạ và phản hồi thực tế vào bảng §7; cập nhật kết quả chấm thử §6. (Chưa có demo thật; bảng §7 hiện là kịch bản diễn tập.)
-- [x] Kiểm tra repo nộp công khai, đúng tên `K5-L3B-Day05-T4-<tên nhóm>` và mở được ở cửa sổ ẩn danh.
+- [ ] Sau demo, ghi ca lạ và phản hồi thực tế vào bảng §7; cập nhật kết quả chấm thử §6. (Chưa có demo thật; bảng §7 hiện là kịch bản diễn tập.)
+- [ ] Kiểm tra repo nộp công khai, đúng tên `K5-L3B-Day05-T4-<tên nhóm>` và mở được ở cửa sổ ẩn danh.
 
 ### Ghi chú đóng gói bài nộp
 
