@@ -93,7 +93,6 @@ code{background:#eef2f6;padding:1px 5px;border-radius:4px}
     <button id="c7" onclick="setCase(7)">#7 · Xin số shop</button>
     <button id="c4" onclick="setCase(4)">#4 · Shop gửi nhầm (thường)</button>
     <label style="margin-left:10px"><input type="checkbox" id="ann" checked> Hiện số chú thích</label>
-    <label><input type="checkbox" id="draft" checked> Panel việc còn lại</label>
   </div>
 </header>
 
@@ -114,16 +113,6 @@ code{background:#eef2f6;padding:1px 5px;border-radius:4px}
 
   <!-- ================= cột phải ================= -->
   <aside>
-    <div class="panel" id="draft-panel">
-      <h2>⏳ Việc còn lại của TV3</h2>
-      <ul style="margin:0;padding-left:18px">
-        <li class="todo-li">Điền tên + mã học viên + việc thật vào bảng thành viên ở spec</li>
-        <li class="todo-li">Ghi lựa chọn độc lập của mình cho tool khó nhất vào bảng §4.3 (mỗi người tự xếp, không chép TV2)</li>
-        <li class="todo-li">Bấm thử cả 3 ca × 2 màn → chụp 1–2 ảnh <b>có bật số chú thích</b></li>
-        <li class="todo-li">Viết §5: công cụ, phần mock, P1–P3 ở ảnh nào, vì sao chọn cách hiện này (mục "quyết định" của template)</li>
-      </ul>
-    </div>
-
     <div class="panel">
       <h2>Lời hứa với người dùng (§4.5 — nguyên văn)</h2>
       <div class="promise">"Tôi giúp bạn chuẩn bị yêu cầu, bổ sung bằng chứng và chuyển hồ sơ khi cần. Nhân viên có thẩm quyền sẽ xem xét tranh chấp; việc chuyển hồ sơ không có nghĩa là yêu cầu hoàn tiền đã được duyệt."</div>
@@ -181,7 +170,7 @@ const SRC1=`<div class="src"><span class="n">2</span><b>Nguồn AI đang có</b>
 
 /* ========================================================= */
 const $=s=>document.querySelector(s);
-let screen='buyer', kase=1, state='start';
+let screen='buyer', kase=1, state='start', sent=false; /* sent: trưởng nhóm đã duyệt & gửi yêu cầu cho shop (mock) */
 
 function me(x){return `<div class="me">${x}</div>`}
 function ai(x){return `<div class="ai"><div class="who">Trợ lý Shopee (AI)</div>${x}</div>`}
@@ -197,7 +186,8 @@ function renderBuyer(){
         Mình đã chuyển hồ sơ cho <b>trưởng nhóm</b> để kiểm tra lịch sử mô tả — việc này AI không tự xác minh được.${SRC1}
         <div class="box done"><span class="n">5</span><b>Đã chuyển hồ sơ</b> · mã hồ sơ HT-KN48213 · mục tiêu phản hồi: ~4 giờ. Trưởng nhóm thấy: 2 bên nói gì, nguồn nào thiếu, hạn khiếu nại 18:00 14/11.
         <div class="btns"><button class="btn out" onclick="go('cancel-transfer')">Hủy chuyển</button><button class="btn" onclick="go('upload')">Bổ sung thêm bằng chứng</button></div></div>
-        <div class="box warn">Người bán sẽ nhận yêu cầu bằng chứng <b>sau khi trưởng nhóm duyệt</b> — xem màn 2. Chưa gửi thành công thì chưa hiện "đã báo shop".</div>`);
+        ${sent?`<div class="box done">Trưởng nhóm đã duyệt — <b>đã gửi yêu cầu bằng chứng cho shop</b>. Hạn phản hồi của shop: 24 giờ kể từ lúc gửi.</div>`
+          :`<div class="box warn">Người bán sẽ nhận yêu cầu bằng chứng <b>sau khi trưởng nhóm duyệt</b> — xem màn 2. Chưa gửi thành công thì chưa hiện "đã báo shop".</div>`}`);
     } else if(state=='cancel-transfer'){
       h+=ai(`Đã hủy yêu cầu chuyển. Hồ sơ quay về trạng thái chờ bạn bổ sung căn cứ. Bạn muốn làm gì tiếp?${SRC1}
         <div class="btns"><button class="btn pri" onclick="go('transfer')">Yêu cầu nhân viên kiểm tra</button><button class="btn" onclick="go('upload')">Bổ sung bằng chứng</button></div>`);
@@ -242,7 +232,8 @@ function renderBuyer(){
     } else if(state=='transfer'){
       h+=ai(`Đang chuyển hồ sơ cho trưởng nhóm…`);
     } else if(state=='transferred'){
-      h+=ai(`Đã chuyển hồ sơ cho trưởng nhóm xem xét tranh chấp. Nhân viên <b>không cung cấp thông tin liên hệ riêng của bên kia</b> — trao đổi vẫn qua kênh sàn. Mục tiêu phản hồi ~4 giờ.`);
+      h+=ai(`Đã chuyển hồ sơ cho trưởng nhóm xem xét tranh chấp. Nhân viên <b>không cung cấp thông tin liên hệ riêng của bên kia</b> — trao đổi vẫn qua kênh sàn. Mục tiêu phản hồi ~4 giờ.
+        <div class="box done"><span class="n">5</span>Chưa muốn chuyển nữa? <div class="btns"><button class="btn out" onclick="go('ordered')">Hủy chuyển</button></div></div>`);
     } else { /* start */
       h+=ai(`<span class="tagline t-privacy"><span class="n">2</span>Bảo vệ thông tin của cả hai bên</span>
         Tôi không cung cấp hoặc xác nhận số điện thoại, địa chỉ riêng của shop. Bạn có thể trao đổi qua mục <b>Chat với shop</b> trong ứng dụng. Nếu shop chưa phản hồi về khiếu nại, tôi có thể hướng dẫn bổ sung bằng chứng hoặc chuyển hồ sơ cho nhân viên xem xét; nhân viên cũng không cung cấp thông tin liên hệ riêng của bên kia.
@@ -266,7 +257,8 @@ function renderBuyer(){
     } else if(state=='transfer'){
       h+=ai(`Đang chuyển hồ sơ cho trưởng nhóm…`);
     } else if(state=='transferred'){
-      h+=ai(`Đã chuyển cho trưởng nhóm. Nhân viên sẽ xem xét yêu cầu trả hàng hoàn tiền — kết quả xét duyệt không do AI quyết.`);
+      h+=ai(`Đã chuyển cho trưởng nhóm. Nhân viên sẽ xem xét yêu cầu trả hàng hoàn tiền — kết quả xét duyệt không do AI quyết.
+        <div class="box done"><span class="n">5</span>Chưa muốn chuyển nữa? <div class="btns"><button class="btn out" onclick="go('ordered')">Hủy chuyển</button></div></div>`);
     } else { /* start: tin không có mã đơn → phải hỏi, không đoán */
       h+=ai(`<span class="tagline t-noground"><span class="n">1</span>Cần biết đơn nào</span> Bạn nói shop nhận gửi nhầm — cho mình xin <b>mã đơn</b> để kiểm tra trước, mình không đoán đơn từ nội dung chat.${ORDER_ASK}`);
     }
@@ -288,10 +280,11 @@ function renderSeller(){
 
     <div class="scard"><h3>Trưởng nhóm — duyệt yêu cầu gửi bằng chứng cho shop</h3>
     Bản nháp (nguyên văn): <i>"Yêu cầu người bán cung cấp ảnh chụp tem size sản phẩm đơn DH-DEMO-01. Tin gửi đi không thu hồi được."</i>
-    <div class="btns">
-      <button class="btn pri" onclick="alert('[mock] Đã duyệt & gửi → trạng thái màn 1 đổi thành đã báo shop')">Duyệt &amp; gửi</button>
+    ${sent?`<div class="box done">Đã duyệt &amp; gửi cho shop. Tin đã tới, không thu hồi được — nếu nội dung sai chỉ đính chính qua quy trình duyệt.</div>`
+    :`<div class="btns">
+      <button class="btn pri" onclick="sent=true;render()">Duyệt &amp; gửi</button>
       <button class="btn out" onclick="alert('[mock P3] Sửa nội dung nháp — đổi nội dung thì phải duyệt lại')">Sửa nội dung</button>
-    </div>
+    </div>`}
     <p style="font-size:12px;color:var(--mut);margin:6px 0 0">Yêu cầu gửi <b>cho shop</b> cần duyệt — khác với mẫu chuẩn gửi cho người mua (AI tự gửi, màn 1 ca #4).</p></div>
 
     <div class="scard"><h3>Shop có thể làm gì</h3>
@@ -313,11 +306,10 @@ function renderPanels(){
 function render(){renderBuyer();renderSeller();renderPanels();}
 function view(s){screen=s;$('#buyer').style.display=s=='buyer'?'flex':'none';$('#seller').style.display=s=='seller'?'block':'none';
   $('#tab-buyer').classList.toggle('on',s=='buyer');$('#tab-seller').classList.toggle('on',s=='seller');render();}
-function setCase(k){kase=k;state='start';[1,7,4].forEach(x=>$('#c'+x).classList.toggle('on',x==k));
+function setCase(k){kase=k;state='start';sent=false;[1,7,4].forEach(x=>$('#c'+x).classList.toggle('on',x==k));
   view('buyer');}
 function go(s){if(s=='transfer'){state='transferred';}else{state=s;}render();}
 $('#ann').onchange=e=>document.body.classList.toggle('hide-n',!e.target.checked);
-$('#draft').onchange=e=>$('#draft-panel').style.display=e.target.checked?'block':'none';
 render();
 </script>
 </body>
