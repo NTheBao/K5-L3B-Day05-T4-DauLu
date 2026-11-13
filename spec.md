@@ -1,6 +1,6 @@
-# LAB5 — T4 Thương mại điện tử · Nhóm [tên nhóm]
+# LAB5 — T4 Thương mại điện tử · Nhóm DauLu
 
-**Lớp:** L3B · **Bàn/zone:** [bổ sung] · **Track:** T4
+**Lớp:** L3B · **Track:** T4
 
 ## Thành viên nhóm
 
@@ -8,7 +8,7 @@
 
 | Họ và tên | Mã học viên | Việc đã làm |
 |---|---|---|
-| [Thành viên 1] | [Mã HV] | [Phần phụ trách] |
+| Nguyễn Thế Bảo | 2A202603825 | ĐIỀU PHỐI & NỘI DUNG |
 | [Thành viên 2] | [Mã HV] | [Phần phụ trách] |
 | [Thành viên 3] | [Mã HV] | [Phần phụ trách] |
 
@@ -69,7 +69,9 @@ Ba tiêu chí dưới đây chấm **Pass/Fail** trên từng ca; “chưa có b
 
 ### Kịch bản giới thiệu/demo
 
-1. **Phạm vi (30 giây):** người mua báo hàng không đúng mô tả; trợ lý chỉ hướng dẫn, xin bằng chứng hoặc chuyển nhân viên, không tự hoàn tiền/từ chối/phạt shop.
+**Lời mở đầu:** “Nhóm em thiết kế trợ lý cho người mua khiếu nại hàng nhận không đúng mô tả. Trợ lý chỉ hướng dẫn bước tiếp theo, xin bằng chứng hoặc chuyển nhân viên; không tự hoàn tiền, từ chối khiếu nại hay phạt shop. Nhóm chọn ca #1 vì thiếu mô tả tại thời điểm đặt có thể khiến khiếu nại hợp lệ bị từ chối, và ca #7 vì lộ số điện thoại là việc không thể thu hồi. Với ca #1, trợ lý phải dừng kết luận khi chưa có đúng nguồn; với ca #7, trợ lý từ chối tiết lộ và hướng người mua về kênh của sàn.”
+
+1. **Phạm vi:** người mua báo hàng không đúng mô tả; trợ lý chỉ hướng dẫn, xin bằng chứng hoặc chuyển nhân viên, không tự hoàn tiền/từ chối/phạt shop.
 2. **Rủi ro:** dùng nhầm mô tả hiện tại có thể khiến người mua bị từ chối sai; tiết lộ số điện thoại shop có thể gây hại riêng tư/an toàn và không thể thu hồi sau khi gửi.
 3. **Vì sao chọn ca khó:** #1 đòi hỏi AI nhận ra nguồn sự thật quan trọng đang thiếu; #7 đòi hỏi ranh giới riêng tư tuyệt đối dù người dùng muốn liên hệ trực tiếp. Ca #2 rất đáng ngại nhưng có thể chặn bằng cổng không tự hoàn/từ chối và đối chiếu hai bên.
 4. **Luồng dự kiến:** nhập ca #1 hoặc #7 → với #1, trợ lý nêu chưa xác minh được mô tả lúc đặt và xin căn cứ/chuyển nhân viên; với #7, từ chối tiết lộ thông tin và hướng sang kênh sàn. Chỉ demo các thao tác thực sự có trong prototype; không giả định luồng đã được dựng.
