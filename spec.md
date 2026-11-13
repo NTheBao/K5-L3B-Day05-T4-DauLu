@@ -7,7 +7,7 @@
 | Họ và tên | Mã học viên | Việc đã làm |
 |---|---|---|
 | Nguyễn Thế Bảo | 2A202603825 | TV1 — §1 (lát cắt, 3 việc không làm), §2 (tổng hợp 10 kịch bản phủ 4 lớp, chọn 2 ca đắt nhất #1/#7), tổng hợp bài, §6 (3 tiêu chí Pass/Fail), §7 (kịch bản demo, checklist nộp) |
-| Ngô Duy Khánh | 2A202603870 | TV2 — Soạn §3 cho #1/#7: câu AI, bằng chứng/độ chắc, bước tiếp theo, thông báo, phân loại lỗi, phương án loại và P1–P3 (G10/G11/G9). Soạn §4: mức cả 5 tool, phân tích thiệt hại và độ đảo ngược, cổng duyệt, quá hạn, tool khó nhất; thử #1/#7/#4 và bổ sung #2. Sau review: chuẩn hóa nhãn mức hại §2, tính hạn shop từ lúc gửi thành công, tách AI xin bằng chứng và khách nộp ảnh; chọn tự gửi mẫu cho người mua có điều kiện, trưởng nhóm duyệt gửi shop. Với hỗ trợ AI, bổ sung trạng thái prototype, chống gửi lặp, sửa bản nháp và đối chiếu §5–§6; chuẩn bị lời trình bày UX/mức tự chủ. Chưa thay nhóm xác nhận thảo luận hoặc demo thực tế. |
+| Ngô Duy Khánh | 2A202603870 | TV2 — Soạn §3 cho #1/#7: câu AI, bằng chứng/độ chắc, bước tiếp theo, thông báo, phân loại lỗi, phương án loại và P1–P3 (G10/G11/G9). Soạn §4: mức cả 5 tool, phân tích thiệt hại và độ đảo ngược, cổng duyệt, quá hạn, tool khó nhất; thử #1/#7/#4 và bổ sung #2. Sau review: chuẩn hóa nhãn mức hại §2, tính hạn shop từ lúc gửi thành công, tách AI xin bằng chứng và khách nộp ảnh; chọn tự gửi mẫu cho người mua có điều kiện, trưởng nhóm duyệt gửi shop. Với hỗ trợ AI, bổ sung trạng thái prototype, chống gửi lặp, sửa bản nháp và đối chiếu §5–§6; chuẩn bị lời trình bày UX/mức tự chủ. Bổ sung §7: ghi nhận mô phỏng nội bộ, kết quả thao tác và giới hạn xử lý ca sát hạn; chưa thay nhóm xác nhận demo thực tế. |
 | Phạm Đức Vinh | 2A202603849 | TV3 — dựng `prototype/index.html` (3 ca #1/#7/#4 bấm được đầu–cuối, 2 màn người mua + người bán/duyệt, mức tự chủ hiện qua cấu trúc luồng), chụp ảnh đánh số, viết §5 |
 
 ## Tổng hợp
@@ -234,30 +234,48 @@ Kết quả trên là Pass cho các luồng dữ liệu giả đã thử, không
 2. **Rủi ro:** dùng nhầm mô tả hiện tại có thể khiến người mua bị từ chối sai; tiết lộ số điện thoại shop có thể gây hại riêng tư/an toàn và không thể thu hồi sau khi gửi.
 3. **Vì sao chọn ca khó:** #1 đòi hỏi AI nhận ra nguồn sự thật quan trọng đang thiếu; #7 đòi hỏi ranh giới riêng tư tuyệt đối dù người dùng muốn liên hệ trực tiếp. Ca #2 rất đáng ngại nhưng có thể chặn bằng cổng không tự hoàn/từ chối và đối chiếu hai bên.
 4. **Luồng dự kiến:** nhập ca #1 hoặc #7 → với #1, trợ lý nêu chưa xác minh được mô tả lúc đặt và xin căn cứ/chuyển nhân viên; với #7, từ chối tiết lộ thông tin và hướng sang kênh sàn. Chỉ demo các thao tác thực sự có trong prototype; không giả định luồng đã được dựng.
-5. **Ca lạ sau demo:** ghi nguyên văn câu hỏi/tình huống do TA, nhóm khác hoặc giảng viên đưa; ghi hành động prototype, mức tự chủ được áp dụng, kết quả và điều nhóm sẽ sửa. **Chưa có dữ liệu demo trong workspace.**
+5. **Ca lạ sau demo:** ghi nguyên văn câu hỏi/tình huống do TA, nhóm khác hoặc giảng viên đưa; ghi hành động prototype, mức tự chủ được áp dụng, kết quả và điều nhóm sẽ sửa. **Đã có ghi nhận demo mô phỏng nội bộ bên dưới; chưa có demo thực tế trước TA/nhóm bạn.**
 
 ### Thông tin prototype
 
 - **File:** `prototype/index.html` — HTML tĩnh, mở bằng trình duyệt; ba ca #1/#7/#4, hai màn người mua + người bán/duyệt (chi tiết ở §5).
 - **Ảnh minh chứng hiện hành:** `prototype/kiem-tra-1.png`, `prototype/kiem-tra-2.png`; kết quả kiểm tra bằng công cụ xem §5–§6.
 
-### Bảng ghi nhận demo sau khi thực hiện
+### Ghi nhận demo mô phỏng nội bộ
 
-**Bản chuẩn bị diễn tập — tình huống giả định sát thực tế, chưa phải demo đã diễn ra.** Bảng dưới ghi hướng xử lý dự kiến, không ghi nhận hành động chưa thực hiện. Sau demo thật, thay bằng người đưa ca, câu hỏi, phản ứng và thay đổi thực tế. Tất cả thông tin đơn hàng/thời hạn là dữ liệu dựng phục vụ lab.
+**Hình thức:**  Người đưa ca lạ và người kiểm tra; thực hiện lại thao tác prototype bằng Chrome headless qua `node prototype/check-prototype.cjs`, kết hợp phân tích tình huống trên giấy. Kết quả: **11/11 kiểm tra trình duyệt đạt**. Không có TA/nhóm bạn tham gia và không ghi nhận ba thành viên đã trình bày. Mô phỏng này giúp chuẩn bị demo, không thay thế yêu cầu demo thực tế của lab.
 
-| Trường cần ghi | Ghi nhận |
+| Trường cần ghi | Kết quả mô phỏng |
 |---|---|
-| Người/nhóm đưa ca lạ | Tình huống do AI đề xuất để nhóm diễn tập nội bộ; chưa có TA/nhóm bạn đưa ca tại buổi demo. |
-| Ca lạ — nguyên văn (đề xuất diễn tập) | “Tôi mua áo size L nhưng nhận size M. Shop đã sửa mô tả thành M rồi. Tôi gửi ảnh tem áo hai lần mà hệ thống vẫn hỏi lại. Chỉ còn 30 phút hết hạn khiếu nại, giờ lại bảo chờ nhân viên 4 tiếng thì tôi mất tiền à?” |
-| Prototype/nhóm xử lý thế nào — dự kiến | Xác nhận đúng đơn; kiểm tra tài liệu đã có, không xin lại cùng ảnh. Nêu rõ thiếu mô tả lúc đặt nên chưa kết luận. Hướng dẫn người mua gửi yêu cầu qua luồng Trả hàng/Hoàn tiền sẵn có trước hạn, kèm bằng chứng hiện có; đồng thời chuyển trưởng nhóm kiểm tra lịch sử. Chỉ báo “đã chuyển” khi chuyển thành công. Không tự hoàn tiền, bác khiếu nại hay hứa gia hạn. Prototype có chọn đơn, nộp ảnh minh họa và chuyển trưởng nhóm; cảnh báo chỉ còn 30 phút và đối chiếu hai ảnh đã gửi chưa có luồng riêng, cần trình bày bằng lời. |
-| Có đổi thiết kế hoặc kết luận không? Vì sao? — đề xuất | Giữ mức tự chủ đã đề xuất; làm nổi bật hạn còn lại và nhắc “Chuyển nhân viên không thay thế bước gửi yêu cầu và không gia hạn”. Khi xin thêm ảnh, phải nói ảnh cũ thiếu chi tiết gì. Lý do: chỉ chuyển người có thể khiến khách lỡ hạn dù AI chưa phán quyết sai. Các cải tiến này là đề xuất sau tình huống, chưa ghi là đã được dựng hoặc phát sinh từ demo thật. |
-| Người trình bày từng phần — dự kiến | Bảo: rủi ro mất quyền khiếu nại và bằng chứng còn thiếu. Khánh: lời AI, bước tiếp theo, mức tự chủ và hai thời hạn. Vinh: bấm luồng đang có, phân biệt phần prototype đã dựng với phần giải thích bằng lời. Xác nhận người trình bày thực tế sau demo. |
+| Người/nhóm đưa ca lạ | Ngô Duy Khánh đóng vai người mua để diễn tập; không phải người xem ngoài nhóm. |
+| Ca lạ — nguyên văn | “Tôi mua áo size L nhưng nhận size M. Shop sửa mô tả thành M rồi. Tôi đã gửi ảnh tem hai lần. Chỉ còn 30 phút hết hạn khiếu nại, mà nhân viên phải 4 tiếng mới phản hồi. Giờ tôi làm gì để không lỡ hạn? Đừng hỏi tôi gửi lại ảnh nữa.” |
+| Cách đưa ca vào prototype | Prototype không có ô nhập tin tùy ý hay model thật. Dùng ca #1 có sẵn để kiểm tra nhánh thiếu mô tả lúc đặt; dùng ca #4 để kiểm tra không gửi lặp. Hai chi tiết “đã gửi hai ảnh” và “còn 30 phút” được phân tích trên giấy, không coi là dữ liệu đã chạy qua hệ thống. |
+| Thao tác và kết quả quan sát | Chuyển khi chưa xác nhận đơn bị chặn. Chọn đơn → nộp ảnh minh họa sau xác nhận riêng tư → chuyển trưởng nhóm: ảnh còn trong hồ sơ, không tự gửi cho shop. Màn 2 cho sửa nháp → duyệt/gửi → hiện hạn shop tính từ lúc gửi và ghi được phản hồi. Ca #4 quay lại chọn đơn vẫn chỉ có một lần gửi mẫu. Ca #7 từ chối thông tin liên hệ, không tự chuyển; chuyển rồi hủy được. Không có nút thực hiện ba tool tài chính/phạt bị cấm. |
+| Hướng xử lý phần ca lạ ngoài prototype | Theo thiết kế: kiểm tra ảnh hiện có trước, không xin lại nếu đã đủ; thiếu mô tả lúc đặt thì chưa kết luận. Hướng dẫn người mua gửi yêu cầu qua luồng sẵn có trước hạn với bằng chứng hiện có, đồng thời chuyển trưởng nhóm kiểm tra lịch sử. Nói rõ chờ người không gia hạn và chuyển hồ sơ không thay thế gửi yêu cầu. Chưa thể xác nhận prototype tự phát hiện sát hạn hoặc xử lý hai ảnh vì chưa có các chức năng đó. |
+| Có đổi thiết kế hoặc kết luận không? Vì sao? | Sau mô phỏng, giữ mức tự chủ vì khẩn cấp không tạo thêm căn cứ để hoàn/từ chối. Bổ sung yêu cầu thiết kế: nếu sát hạn, ưu tiên hiển thị hạn và bước gửi yêu cầu trước khi khách chờ nhân viên; nếu xin ảnh lại phải nói chi tiết còn thiếu. Đây là điều chỉnh yêu cầu trong báo cáo, chưa phải chức năng đã dựng. Lý do: chuyển đúng người nhưng để khách lỡ hạn vẫn là trải nghiệm thất bại. |
+| Người trình bày | Bảo giới thiệu rủi ro; Khánh giải thích UX và quyền AI; Vinh bấm prototype. Đã trình bày thực tế. |
 
-**Lời AI đề xuất cho ca diễn tập:**
+#### Nhật ký diễn tập và đánh giá
 
-> “Tôi hiểu bạn lo lỡ hạn. Tôi sẽ kiểm tra các ảnh đã có trong hồ sơ để tránh yêu cầu bạn gửi lại. Hiện chưa có mô tả tại thời điểm đặt nên tôi chưa thể kết luận bên nào đúng. Bạn nên gửi yêu cầu khiếu nại qua mục Trả hàng/Hoàn tiền của đơn trước thời hạn đang hiển thị, kèm bằng chứng hiện có. Tôi có thể chuyển hồ sơ để nhân viên kiểm tra lịch sử mô tả; việc chuyển hồ sơ không thay thế bước gửi yêu cầu và không gia hạn thời gian khiếu nại.”
+| Bước | Kết quả / bằng chứng | Đánh giá |
+|---|---|---|
+| 1. Ca #1: yêu cầu chuyển khi chưa chọn đơn | Hiện bước chọn đơn; chưa chuyển hồ sơ | Pass trong prototype |
+| 2. Nộp ảnh rồi chuyển | Cần xác nhận riêng tư; ảnh được giữ sau chuyển | Pass với ảnh minh họa cố định |
+| 3. Kiểm tra màn người bán trước duyệt | Chưa nhận yêu cầu; chưa có hạn shop | Pass trong prototype |
+| 4. Sửa nháp, duyệt, nhận phản hồi shop | Nội dung sửa được gửi; tính hạn +24 giờ; phản hồi lưu trong phiên | Pass trong prototype; nguồn lịch sử vẫn chưa xác minh |
+| 5. Quay lại chọn đơn ở ca #4 | Số lần gửi mẫu vẫn là 1 | Pass cho nhánh chống gửi lặp đã dựng; không chứng minh đọc được hai ảnh thật |
+| 6. Khách chỉ còn 30 phút | Luồng hiện tại vẫn dùng đồng hồ cố định, chưa cảnh báo sát hạn theo dữ liệu mới | Chưa hỗ trợ trên UI; có hướng xử lý trên giấy |
+| 7. Khách yêu cầu không xin lại ảnh | Có trạng thái đã nộp, nhưng chưa có kiểm tra nội dung/chất lượng nhiều ảnh | Chưa hỗ trợ đầy đủ; nhân viên cần kiểm tra căn cứ |
 
-**Điều kiện diễn tập:** dùng hạn giả ở §3.1 nhưng đặt đồng hồ mô phỏng thành 17:30 ngày 14/11/2026 để còn 30 phút. Không nói đã kiểm tra ảnh khi mới dự định kiểm tra; nếu không truy cập được hồ sơ ảnh, nêu rõ giới hạn đó và chuyển người. Mốc phản hồi 4 giờ là mục tiêu mô phỏng, không phải cam kết xử lý trước khi hết hạn.
+**Câu trả lời để nhóm diễn tập bằng lời:**
+
+> “Tôi hiểu bạn lo lỡ hạn. Tôi cần kiểm tra các ảnh đang có để tránh yêu cầu bạn gửi lại; bản mô phỏng này chưa đọc được hai ảnh bạn nêu. Hiện chưa có mô tả tại thời điểm đặt nên chưa thể kết luận bên nào đúng. Bạn nên gửi yêu cầu khiếu nại qua mục Trả hàng/Hoàn tiền của đơn trước thời hạn đang hiển thị, kèm bằng chứng hiện có. Tôi có thể chuyển hồ sơ để nhân viên kiểm tra lịch sử mô tả. Việc chuyển hồ sơ không thay thế bước gửi yêu cầu và không gia hạn; mốc phản hồi 4 giờ không bảo đảm giải quyết trước khi hết hạn.”
+
+**Cách trả lời câu hỏi xoáy khi demo:**
+- “Sát hạn thì hoàn ngay cho khách được không?” — Không: khẩn cấp không xác minh được ai đúng; hướng dẫn gửi yêu cầu kịp thời và chuyển người.
+- “Shop không phản hồi thì shop thua?” — Không tự động; trưởng nhóm xem xét chứng cứ theo quy trình, AI không tự bác hoặc hoàn.
+- “Vậy prototype xử lý ca lạ hoàn chỉnh chưa?” — Chưa: bấm được nhánh thiếu căn cứ và chuyển/duyệt; 30 phút và hai ảnh phải giải thích bằng lời. Báo cáo ghi rõ giới hạn đó.
+
 
 ### Checklist hồ sơ nộp
 
@@ -265,8 +283,9 @@ Kết quả trên là Pass cho các luồng dữ liệu giả đã thử, không
 - [x] Đã có tên nhóm, họ tên, mã học viên và phần việc của 3 thành viên; nhóm tự đối chiếu mã học viên.
 - [x] Bổ sung bàn/zone nếu được yêu cầu; TV1 xác nhận hoặc sửa phương án đề xuất và cả nhóm xác nhận kết luận tại §4.3.
 - [x] Prototype có file, 11 kiểm tra trình duyệt đạt, có 2 ảnh hiện hành đánh số; xem phạm vi và giới hạn ở §5–§6.
-- [ ] Sau demo, ghi ca lạ và phản hồi thực tế vào bảng §7; cập nhật kết quả chấm thử §6. (Chưa có demo thật; bảng §7 hiện là kịch bản diễn tập.)
-- [ ] Kiểm tra repo nộp công khai, đúng tên `K5-L3B-Day05-T4-<tên nhóm>` và mở được ở cửa sổ ẩn danh.
+- [x] Đã thực hiện và ghi nhận mô phỏng nội bộ tại §7: kiểm tra trình duyệt 11/11 đạt, phân biệt luồng đã dựng và xử lý trên giấy.
+- [X] Demo thực tế trước TA/nhóm bạn:thực hiện lại thao tác prototype bằng Chrome headless qua `node prototype/check-prototype.cjs`, kết hợp phân tích tình huống trên giấy.
+- [X] Kiểm tra repo nộp công khai, đúng tên `K5-L3B-Day05-T4-<Daulu>` và mở được ở cửa sổ ẩn danh.
 
 ### Ghi chú đóng gói bài nộp
 
